@@ -16,8 +16,36 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 const mockProperties = [
-  { id: '1', name: 'Titan Residency', capacity: 450, occupied: 380, averageRating: 4.9, amenities: ['Fiber Net', 'Climate Control'], image: 'https://images.unsplash.com/photo-1555854817-5b2260d50c50?auto=format&fit=crop&q=80&w=800' },
-  { id: '2', name: 'Nebula Hall', capacity: 300, occupied: 150, averageRating: 4.7, amenities: ['Gym', '24/7 Cafeteria'], image: 'https://images.unsplash.com/photo-1595246140625-573b715d11dc?auto=format&fit=crop&q=80&w=800' }
+  { 
+    id: '1', 
+    name: 'Titan Residency', 
+    type: 'Luxury PG Room',
+    location: 'Sector Core 4',
+    price: 12000,
+    available: 4,
+    vibe: [
+      { label: 'Security Level', value: 95, color: 'text-emerald-400' },
+      { label: 'Noise Dampening', value: 80, color: 'text-cyan-400' },
+      { label: 'Social Density', value: 65, color: 'text-purple-400' }
+    ],
+    amenities: ['Fiber Net', 'Climate Control', 'Gym Access'], 
+    image: '🏢' 
+  },
+  { 
+    id: '2', 
+    name: 'Nebula Hall', 
+    type: 'Shared Dormitory',
+    location: 'Rim Campus Sector',
+    price: 6500,
+    available: 12,
+    vibe: [
+      { label: 'Security Level', value: 85, color: 'text-emerald-400' },
+      { label: 'Noise Dampening', value: 70, color: 'text-cyan-400' },
+      { label: 'Social Density', value: 90, color: 'text-purple-400' }
+    ],
+    amenities: ['24/7 Canteen', 'Study Zones', 'Power Backup'], 
+    image: '🏠' 
+  }
 ];
 
 const mockRooms = [

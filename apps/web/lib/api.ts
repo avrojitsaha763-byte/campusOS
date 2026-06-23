@@ -21,9 +21,10 @@ export const api = {
         const prefix = Object.keys(serviceMap).find(k => endpoint.startsWith(k));
         if (prefix) {
             baseUrl = serviceMap[prefix];
-            // If the baseUrl includes /api, we might need to adjust endpoint
-            // But here the serviceMap points to the root of the service
-            endpoint = endpoint.replace(prefix, ''); 
+            // Do not strip prefix for services that expect it (auth, payment, wallet)
+            if (prefix !== '/auth' && prefix !== '/wallet' && prefix !== '/payment') {
+                endpoint = endpoint.replace(prefix, ''); 
+            }
         }
     }
 

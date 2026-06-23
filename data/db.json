@@ -1,0 +1,480 @@
+{
+  "platform": {
+    "name": "CampusOS TITAN X",
+    "version": "2.0.0",
+    "tagline": "Unified AI-Powered Campus Digital Economy",
+    "founded": "2024",
+    "valuation": "$4.2M",
+    "activeUsers": 12847,
+    "totalTransactions": 284930,
+    "campusCoinMarketCap": 1284750
+  },
+  "users": [
+    {
+      "id": "usr_001",
+      "name": "Avrojit Saha",
+      "email": "avrojit@campusos.ai",
+      "role": "student",
+      "avatar": "AS",
+      "department": "Computer Science",
+      "year": 3,
+      "collegeName": "IIT Innovation Hub",
+      "campusCoins": 4250,
+      "rupeesBalance": 8500,
+      "totalOrders": 47,
+      "skillsListed": 3,
+      "marketplaceListings": 5,
+      "trustScore": 98,
+      "joinedAt": "2023-08-15",
+      "badges": ["Early Adopter", "TITAN Member", "Top Seller"],
+      "hostelRoom": "B-302",
+      "hostelBlock": "Bhagat Singh Block"
+    },
+    {
+      "id": "usr_002",
+      "name": "Priya Sharma",
+      "email": "priya@campusos.ai",
+      "role": "student",
+      "avatar": "PS",
+      "department": "Electronics",
+      "year": 2,
+      "campusCoins": 2100,
+      "rupeesBalance": 3200,
+      "trustScore": 95,
+      "badges": ["SkillSwap Pro", "Active Seller"]
+    }
+  ],
+  "stats": {
+    "live": {
+      "activeDeliveries": 23,
+      "canteenQueue": "Low",
+      "openSkillListings": 142,
+      "marketplaceListings": 847,
+      "onlineUsers": 1243,
+      "todayTransactions": 4287,
+      "todayRevenue": 284750,
+      "escrowHeld": 124500
+    },
+    "monthly": {
+      "newUsers": 847,
+      "totalOrders": 12847,
+      "gmv": 4284750,
+      "campusCoinsIssued": 284000,
+      "avgOrderValue": 334
+    }
+  },
+  "marketplace": {
+    "categories": ["Electronics", "Books", "Clothing", "Furniture", "Sports", "Instruments", "Stationery", "Others"],
+    "listings": [
+      {
+        "id": "mkt_001",
+        "title": "MacBook Pro M2 (2023) - Like New",
+        "price": 95000,
+        "campusCoins": 9500,
+        "category": "Electronics",
+        "condition": "Like New",
+        "seller": "Rahul Verma",
+        "sellerRating": 4.9,
+        "description": "Used for 6 months only. Comes with original charger and box. Apple Care+ until 2025.",
+        "images": ["macbook.jpg"],
+        "tags": ["laptop", "apple", "m2"],
+        "views": 284,
+        "wishlists": 47,
+        "postedAt": "2024-01-15",
+        "status": "active",
+        "escrowEnabled": true,
+        "location": "Block C, Room 204",
+        "verified": true
+      },
+      {
+        "id": "mkt_002",
+        "title": "DSLR Canon EOS 90D Bundle",
+        "price": 45000,
+        "campusCoins": 4500,
+        "category": "Electronics",
+        "condition": "Good",
+        "seller": "Ananya Bose",
+        "sellerRating": 4.8,
+        "description": "Canon EOS 90D with 18-55mm and 55-250mm lenses. 2 batteries, charger, bag included.",
+        "tags": ["camera", "photography", "dslr"],
+        "views": 192,
+        "wishlists": 31,
+        "status": "active",
+        "escrowEnabled": true
+      },
+      {
+        "id": "mkt_003",
+        "title": "Engineering Mathematics Vol 1-4",
+        "price": 800,
+        "campusCoins": 80,
+        "category": "Books",
+        "condition": "Good",
+        "seller": "Vikram Das",
+        "sellerRating": 4.7,
+        "description": "Complete set of RD Sharma Engineering Mathematics. Highlighted but very useful notes.",
+        "tags": ["textbook", "math", "engineering"],
+        "views": 84,
+        "wishlists": 12,
+        "status": "active"
+      },
+      {
+        "id": "mkt_004",
+        "title": "Herman Miller Aeron Chair (Refurb)",
+        "price": 28000,
+        "campusCoins": 2800,
+        "category": "Furniture",
+        "condition": "Excellent",
+        "seller": "IIT Alumni Network",
+        "sellerRating": 5.0,
+        "description": "Authentic Herman Miller Aeron refurbished by certified technicians. 2-year warranty.",
+        "views": 423,
+        "wishlists": 89,
+        "status": "active",
+        "escrowEnabled": true,
+        "verified": true
+      }
+    ]
+  },
+  "logistics": {
+    "deliveryStats": {
+      "averageTime": "18 min",
+      "successRate": 98.4,
+      "activeGigRiders": 47,
+      "todayDeliveries": 234
+    },
+    "activeDeliveries": [
+      {
+        "id": "del_001",
+        "orderId": "ORD_8842",
+        "item": "MacBook Charger (from Block A)",
+        "from": "Block A, Room 102",
+        "to": "Block C, Room 304",
+        "rider": "Karan Mehta",
+        "riderRating": 4.9,
+        "status": "in_transit",
+        "eta": "8 min",
+        "price": 25,
+        "campusCoins": 3,
+        "distance": "0.8 km",
+        "otp": "4872",
+        "startedAt": "2024-01-15T14:22:00Z"
+      },
+      {
+        "id": "del_002",
+        "orderId": "ORD_8841",
+        "item": "Canteen Order - 2 Meals + Chai",
+        "from": "Main Canteen",
+        "to": "Library Study Room 3",
+        "rider": "Preethi Nair",
+        "status": "picked_up",
+        "eta": "5 min",
+        "price": 15,
+        "campusCoins": 2
+      }
+    ],
+    "gigRiders": [
+      {
+        "id": "rider_001",
+        "name": "Karan Mehta",
+        "rating": 4.9,
+        "deliveries": 284,
+        "earnings": 8420,
+        "status": "active",
+        "department": "Civil Engineering"
+      }
+    ]
+  },
+  "skillswap": {
+    "categories": ["Programming", "Design", "Music", "Languages", "Fitness", "Academics", "Business", "Arts"],
+    "listings": [
+      {
+        "id": "skill_001",
+        "title": "Full-Stack Development Mentoring",
+        "provider": "Avrojit Saha",
+        "providerRating": 4.95,
+        "category": "Programming",
+        "tags": ["React", "Node.js", "MongoDB", "TypeScript"],
+        "pricePerHour": 250,
+        "campusCoinsPerHour": 50,
+        "barterAllowed": true,
+        "barterFor": ["UI/UX Design sessions", "Guitar lessons"],
+        "availability": ["Weekends", "Evening 6-9 PM"],
+        "sessions": 47,
+        "students": 23,
+        "description": "Learn modern full-stack development with hands-on projects. Build real products.",
+        "rating": 4.95,
+        "reviews": 23
+      },
+      {
+        "id": "skill_002",
+        "title": "Figma + UI/UX Design Masterclass",
+        "provider": "Aisha Khan",
+        "providerRating": 4.8,
+        "category": "Design",
+        "tags": ["Figma", "UX Research", "Prototyping"],
+        "pricePerHour": 200,
+        "campusCoinsPerHour": 40,
+        "barterAllowed": true,
+        "sessions": 31,
+        "rating": 4.8
+      },
+      {
+        "id": "skill_003",
+        "title": "Classical Guitar - Beginner to Intermediate",
+        "provider": "Rohan Menon",
+        "category": "Music",
+        "tags": ["Guitar", "Music Theory", "Classical"],
+        "pricePerHour": 150,
+        "barterAllowed": true,
+        "rating": 4.9
+      }
+    ]
+  },
+  "hostel": {
+    "blocks": [
+      {
+        "id": "block_a",
+        "name": "APJ Abdul Kalam Block",
+        "type": "Boys",
+        "floors": 5,
+        "roomsPerFloor": 20,
+        "occupancy": 94,
+        "amenities": ["WiFi", "AC", "Gym", "Common Room", "Laundry"],
+        "warden": "Dr. Suresh Kumar",
+        "maintenanceOpen": 3
+      },
+      {
+        "id": "block_b",
+        "name": "Bhagat Singh Block",
+        "type": "Boys",
+        "floors": 4,
+        "roomsPerFloor": 18,
+        "occupancy": 89,
+        "amenities": ["WiFi", "AC", "Common Room"],
+        "maintenanceOpen": 1
+      }
+    ],
+    "maintenance": [
+      {
+        "id": "maint_001",
+        "room": "B-302",
+        "issue": "AC Compressor not working",
+        "priority": "High",
+        "status": "In Progress",
+        "assignedTo": "Electrician Team",
+        "reportedAt": "2024-01-14",
+        "eta": "Today by 6 PM"
+      },
+      {
+        "id": "maint_002",
+        "room": "A-108",
+        "issue": "Bathroom faucet dripping",
+        "priority": "Medium",
+        "status": "Pending",
+        "reportedAt": "2024-01-13",
+        "eta": "Tomorrow"
+      }
+    ],
+    "pgListings": [
+      {
+        "id": "pg_001",
+        "name": "TechPark PG - Premium",
+        "location": "500m from Gate 2",
+        "rent": 8500,
+        "type": "Single Occupancy",
+        "amenities": ["WiFi", "AC", "Meals", "Laundry", "Gym"],
+        "available": true,
+        "rating": 4.7
+      }
+    ]
+  },
+  "food": {
+    "canteens": [
+      {
+        "id": "canteen_main",
+        "name": "Main Canteen",
+        "status": "Open",
+        "crowd": "Low",
+        "crowdPercent": 23,
+        "waitTime": "5 min",
+        "rating": 4.2,
+        "operatingHours": "7:00 AM - 10:30 PM"
+      },
+      {
+        "id": "canteen_north",
+        "name": "North Campus Dhaba",
+        "status": "Open",
+        "crowd": "Medium",
+        "crowdPercent": 54,
+        "waitTime": "12 min",
+        "rating": 4.5
+      },
+      {
+        "id": "canteen_south",
+        "name": "South Wing Cafe",
+        "status": "Closed",
+        "crowd": "None",
+        "crowdPercent": 0,
+        "rating": 4.3
+      }
+    ],
+    "menu": [
+      {
+        "id": "item_001",
+        "name": "Masala Dosa Combo",
+        "canteen": "canteen_main",
+        "price": 45,
+        "campusCoins": 5,
+        "category": "South Indian",
+        "rating": 4.6,
+        "available": true,
+        "isVeg": true,
+        "prepTime": "7 min",
+        "calories": 340,
+        "trending": true
+      },
+      {
+        "id": "item_002",
+        "name": "Chicken Biryani (Full)",
+        "canteen": "canteen_main",
+        "price": 120,
+        "campusCoins": 12,
+        "category": "Rice",
+        "rating": 4.8,
+        "available": true,
+        "isVeg": false,
+        "prepTime": "15 min",
+        "calories": 650,
+        "trending": true
+      },
+      {
+        "id": "item_003",
+        "name": "Cold Coffee + Brownie Combo",
+        "canteen": "canteen_south",
+        "price": 90,
+        "campusCoins": 9,
+        "category": "Beverages",
+        "rating": 4.9,
+        "available": false,
+        "isVeg": true,
+        "prepTime": "5 min",
+        "calories": 420
+      }
+    ],
+    "messSubscriptions": [
+      {
+        "id": "mess_001",
+        "name": "30-Day Full Mess Plan",
+        "price": 3500,
+        "meals": "Breakfast + Lunch + Dinner",
+        "savings": 800,
+        "popular": true
+      }
+    ]
+  },
+  "social": {
+    "feed": [
+      {
+        "id": "post_001",
+        "author": "CampusOS Events",
+        "authorType": "official",
+        "content": "🎉 TITAN HACKATHON 2024 — Registration NOW OPEN! 48-hour coding marathon. ₹5L prize pool. Build on CampusOS APIs. Register before Jan 20!",
+        "likes": 847,
+        "comments": 234,
+        "shares": 127,
+        "tags": ["hackathon", "coding", "prize"],
+        "postedAt": "2024-01-15T08:00:00Z",
+        "pinned": true
+      },
+      {
+        "id": "post_002",
+        "author": "Avrojit Saha",
+        "department": "CS 3rd Year",
+        "content": "Just launched my Full-Stack mentoring on SkillSwap! First session FREE for TITAN members. React + Node + MongoDB. DM or book directly 🚀",
+        "likes": 124,
+        "comments": 47,
+        "tags": ["skillswap", "react", "mentoring"],
+        "postedAt": "2024-01-15T09:30:00Z"
+      }
+    ],
+    "events": [
+      {
+        "id": "evt_001",
+        "title": "TITAN Hackathon 2024",
+        "description": "48-hour hackathon with ₹5L prize pool",
+        "date": "2024-02-02",
+        "venue": "Main Auditorium",
+        "organizer": "CampusOS",
+        "attendees": 847,
+        "maxAttendees": 1000,
+        "registrationOpen": true,
+        "tags": ["tech", "hackathon", "prizes"]
+      }
+    ]
+  },
+  "wallet": {
+    "transactions": [
+      {
+        "id": "txn_001",
+        "type": "credit",
+        "amount": 250,
+        "currency": "INR",
+        "description": "SkillSwap session payment received",
+        "from": "Rohan M.",
+        "timestamp": "2024-01-15T14:30:00Z",
+        "status": "completed",
+        "category": "skillswap"
+      },
+      {
+        "id": "txn_002",
+        "type": "debit",
+        "amount": 120,
+        "currency": "INR",
+        "description": "Chicken Biryani - Main Canteen",
+        "timestamp": "2024-01-15T12:45:00Z",
+        "status": "completed",
+        "category": "food"
+      },
+      {
+        "id": "txn_003",
+        "type": "coins_credit",
+        "amount": 50,
+        "currency": "CAMPUS_COIN",
+        "description": "Daily login bonus",
+        "timestamp": "2024-01-15T08:00:00Z",
+        "status": "completed",
+        "category": "rewards"
+      }
+    ],
+    "escrow": [
+      {
+        "id": "escrow_001",
+        "orderId": "ORD_7821",
+        "item": "MacBook Pro M2",
+        "amount": 95000,
+        "buyer": "Dev Patel",
+        "seller": "Rahul Verma",
+        "status": "held",
+        "heldSince": "2024-01-14",
+        "releaseOn": "Delivery confirmation"
+      }
+    ]
+  },
+  "admin": {
+    "revenueData": [
+      {"month": "Aug", "revenue": 284000, "users": 4200},
+      {"month": "Sep", "revenue": 342000, "users": 5800},
+      {"month": "Oct", "revenue": 428000, "users": 7200},
+      {"month": "Nov", "revenue": 512000, "users": 9100},
+      {"month": "Dec", "revenue": 624000, "users": 10800},
+      {"month": "Jan", "revenue": 748000, "users": 12847}
+    ],
+    "moduleRevenue": [
+      {"module": "Marketplace", "revenue": 284000, "share": 38},
+      {"module": "SkillSwap", "revenue": 198000, "share": 26},
+      {"module": "Logistics", "revenue": 142000, "share": 19},
+      {"module": "Food", "revenue": 89000, "share": 12},
+      {"module": "Hostel", "revenue": 37000, "share": 5}
+    ]
+  }
+}

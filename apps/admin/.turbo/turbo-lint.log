@@ -1,0 +1,7 @@
+
+> admin@1.0.0 lint C:\Users\AVROJIT\OneDrive\Desktop\CampusOS TITAN X\apps\admin
+> next lint
+
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/basic-features/eslint#migrating-existing-config
+✔ No ESLint warnings or errors

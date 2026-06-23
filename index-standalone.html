@@ -1,0 +1,2790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusOS TITAN X — Unified Campus Digital Economy</title>
+  <meta name="description" content="AI-powered campus super-app: Marketplace, Logistics, SkillSwap, Hostel, Food, Social & Fintech" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ===========================
+       TITAN DESIGN SYSTEM
+    =========================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Colors */
+      --bg-void: #050508;
+      --bg-base: #080B12;
+      --bg-surface: #0E1320;
+      --bg-raised: #131929;
+      --bg-hover: #1A2236;
+      --border: rgba(255,255,255,0.07);
+      --border-active: rgba(255,255,255,0.15);
+      
+      /* Brand Gradients */
+      --titan-purple: #8B5CF6;
+      --titan-cyan: #06B6D4;
+      --titan-amber: #F59E0B;
+      --titan-emerald: #10B981;
+      --titan-rose: #F43F5E;
+      --titan-blue: #3B82F6;
+      --titan-indigo: #6366F1;
+      
+      /* Glow */
+      --glow-purple: 0 0 40px rgba(139,92,246,0.35);
+      --glow-cyan: 0 0 40px rgba(6,182,212,0.35);
+      --glow-amber: 0 0 40px rgba(245,158,11,0.35);
+      --glow-emerald: 0 0 40px rgba(16,185,129,0.3);
+      
+      /* Typography */
+      --font-sans: 'Inter', sans-serif;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      /* Sidebar */
+      --sidebar-width: 260px;
+      --topbar-height: 64px;
+    }
+
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-void);
+      color: rgba(255,255,255,0.9);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ===== ANIMATED BG ===== */
+    .bg-mesh {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(139,92,246,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(6,182,212,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(99,102,241,0.04) 0%, transparent 70%),
+        var(--bg-void);
+    }
+
+    .scanline {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+    }
+
+    /* ===== PARTICLES ===== */
+    #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    /* ===== APP SHELL ===== */
+    .app-shell {
+      display: grid;
+      grid-template-columns: var(--sidebar-width) 1fr;
+      grid-template-rows: var(--topbar-height) 1fr;
+      min-height: 100vh;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      grid-row: 1 / -1;
+      background: linear-gradient(180deg, rgba(14,19,32,0.98) 0%, rgba(8,11,18,0.98) 100%);
+      border-right: 1px solid var(--border);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 2px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.3); border-radius: 2px; }
+
+    .sidebar-logo {
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--titan-purple), var(--titan-cyan));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 18px;
+      color: white;
+      box-shadow: var(--glow-purple);
+      animation: pulse-logo 4s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse-logo {
+      0%, 100% { box-shadow: 0 0 20px rgba(139,92,246,0.4); }
+      50% { box-shadow: 0 0 40px rgba(139,92,246,0.7), 0 0 80px rgba(6,182,212,0.2); }
+    }
+
+    .logo-text .name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 17px;
+      background: linear-gradient(90deg, #fff, rgba(139,92,246,0.9));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-text .badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--titan-cyan);
+      font-family: var(--font-mono);
+    }
+
+    /* User Profile Card */
+    .sidebar-profile {
+      margin: 16px 12px;
+      background: rgba(139,92,246,0.08);
+      border: 1px solid rgba(139,92,246,0.2);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-profile:hover {
+      background: rgba(139,92,246,0.15);
+      border-color: rgba(139,92,246,0.4);
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--titan-purple), var(--titan-indigo));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 0 15px rgba(139,92,246,0.4);
+    }
+
+    .profile-info .pname {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.95);
+    }
+
+    .profile-info .pdept {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      font-family: var(--font-mono);
+    }
+
+    .profile-coins {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(245,158,11,0.12);
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: 8px;
+      padding: 4px 8px;
+    }
+
+    .profile-coins .coin-icon { font-size: 12px; }
+    .profile-coins .coin-val {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--titan-amber);
+    }
+
+    /* Nav Sections */
+    .nav-section {
+      padding: 8px 12px 4px;
+    }
+
+    .nav-section-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      padding: 0 8px;
+      margin-bottom: 6px;
+      font-family: var(--font-mono);
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 9px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      margin-bottom: 2px;
+      text-decoration: none;
+      color: rgba(255,255,255,0.55);
+      border: 1px solid transparent;
+    }
+
+    .nav-item:hover {
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.9);
+      border-color: var(--border);
+    }
+
+    .nav-item.active {
+      background: linear-gradient(135deg, rgba(139,92,246,0.18), rgba(6,182,212,0.08));
+      color: white;
+      border-color: rgba(139,92,246,0.35);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 0 20px rgba(139,92,246,0.12);
+    }
+
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 60%;
+      background: linear-gradient(180deg, var(--titan-purple), var(--titan-cyan));
+      border-radius: 0 2px 2px 0;
+      box-shadow: 0 0 10px rgba(139,92,246,0.6);
+    }
+
+    .nav-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item.active .nav-icon { transform: scale(1.05); }
+
+    .nav-label {
+      font-size: 13.5px;
+      font-weight: 500;
+      flex: 1;
+    }
+
+    .nav-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 100px;
+      font-family: var(--font-mono);
+    }
+
+    .nav-badge.live {
+      background: rgba(16,185,129,0.2);
+      color: var(--titan-emerald);
+      border: 1px solid rgba(16,185,129,0.3);
+      animation: pulse-badge 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-badge {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .nav-badge.new {
+      background: rgba(245,158,11,0.2);
+      color: var(--titan-amber);
+      border: 1px solid rgba(245,158,11,0.3);
+    }
+
+    .nav-badge.count {
+      background: rgba(244,63,94,0.2);
+      color: var(--titan-rose);
+      border: 1px solid rgba(244,63,94,0.3);
+    }
+
+    /* Sidebar Bottom */
+    .sidebar-bottom {
+      margin-top: auto;
+      padding: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .platform-stats {
+      background: linear-gradient(135deg, rgba(6,182,212,0.06), rgba(139,92,246,0.06));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 8px;
+    }
+
+    .platform-stats .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 3px 0;
+    }
+
+    .platform-stats .stat-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .platform-stats .stat-value {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .platform-stats .stat-value.green { color: var(--titan-emerald); }
+    .platform-stats .stat-value.cyan { color: var(--titan-cyan); }
+    .platform-stats .stat-value.amber { color: var(--titan-amber); }
+
+    /* ===== TOPBAR ===== */
+    .topbar {
+      background: rgba(8,11,18,0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .search-bar {
+      flex: 1;
+      max-width: 480px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px 14px;
+      transition: all 0.2s ease;
+    }
+
+    .search-bar:focus-within {
+      border-color: rgba(139,92,246,0.4);
+      background: rgba(139,92,246,0.06);
+      box-shadow: 0 0 20px rgba(139,92,246,0.12);
+    }
+
+    .search-bar input {
+      background: none;
+      border: none;
+      outline: none;
+      color: rgba(255,255,255,0.8);
+      font-size: 13.5px;
+      font-family: var(--font-sans);
+      flex: 1;
+    }
+
+    .search-bar input::placeholder { color: rgba(255,255,255,0.3); }
+
+    .search-icon { color: rgba(255,255,255,0.3); font-size: 16px; }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .topbar-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 17px;
+      position: relative;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .topbar-btn:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--border-active);
+      color: white;
+    }
+
+    .notif-dot {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      width: 7px;
+      height: 7px;
+      background: var(--titan-rose);
+      border-radius: 50%;
+      border: 1.5px solid var(--bg-base);
+      animation: pulse-badge 1.5s infinite;
+    }
+
+    .topbar-separator {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
+    }
+
+    .topbar-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--titan-purple), var(--titan-indigo));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(139,92,246,0.4);
+      transition: all 0.2s ease;
+    }
+
+    .topbar-avatar:hover { transform: scale(1.05); }
+
+    /* ===== MAIN CONTENT ===== */
+    .main-content {
+      overflow-y: auto;
+      background: transparent;
+    }
+
+    .main-content::-webkit-scrollbar { width: 4px; }
+    .main-content::-webkit-scrollbar-track { background: transparent; }
+    .main-content::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.3); border-radius: 4px; }
+
+    .page {
+      display: none;
+      padding: 28px 28px 60px;
+      max-width: 1400px;
+    }
+
+    .page.active { display: block; animation: fadeIn 0.3s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    .page-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .see-all {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--titan-purple);
+      cursor: pointer;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+
+    .see-all:hover { color: var(--titan-cyan); }
+
+    /* ===== CARDS ===== */
+    .titan-card {
+      background: linear-gradient(135deg, rgba(14,19,32,0.98), rgba(8,11,18,0.95));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .titan-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: linear-gradient(135deg, rgba(139,92,246,0.05), rgba(6,182,212,0.03));
+      pointer-events: none;
+    }
+
+    .titan-card:hover {
+      border-color: rgba(139,92,246,0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(139,92,246,0.08);
+    }
+
+    .titan-card:hover::before { opacity: 1; }
+
+    /* ===== STAT CARDS ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--stat-color, linear-gradient(90deg, var(--titan-purple), var(--titan-cyan)));
+      opacity: 0.8;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-active);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+
+    .stat-card .stat-icon {
+      font-size: 24px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .stat-card .stat-number {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -1px;
+      margin-bottom: 4px;
+    }
+
+    .stat-card .stat-name {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-card .stat-change {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    .stat-change.up { color: var(--titan-emerald); }
+    .stat-change.down { color: var(--titan-rose); }
+
+    /* ===== GRID LAYOUTS ===== */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+
+    /* ===== BADGES ===== */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+    }
+
+    .badge-purple { background: rgba(139,92,246,0.15); color: var(--titan-purple); border: 1px solid rgba(139,92,246,0.25); }
+    .badge-cyan { background: rgba(6,182,212,0.12); color: var(--titan-cyan); border: 1px solid rgba(6,182,212,0.25); }
+    .badge-emerald { background: rgba(16,185,129,0.12); color: var(--titan-emerald); border: 1px solid rgba(16,185,129,0.25); }
+    .badge-amber { background: rgba(245,158,11,0.12); color: var(--titan-amber); border: 1px solid rgba(245,158,11,0.25); }
+    .badge-rose { background: rgba(244,63,94,0.12); color: var(--titan-rose); border: 1px solid rgba(244,63,94,0.25); }
+    .badge-blue { background: rgba(59,130,246,0.12); color: var(--titan-blue); border: 1px solid rgba(59,130,246,0.25); }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      font-family: var(--font-sans);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--titan-purple), var(--titan-indigo));
+      color: white;
+      box-shadow: 0 4px 20px rgba(139,92,246,0.4);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 8px 30px rgba(139,92,246,0.6);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: rgba(255,255,255,0.8);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.09);
+      border-color: var(--border-active);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      padding: 6px 12px;
+    }
+
+    .btn-ghost:hover { color: white; background: rgba(255,255,255,0.05); }
+
+    .btn-emerald {
+      background: linear-gradient(135deg, var(--titan-emerald), #059669);
+      color: white;
+      box-shadow: 0 4px 20px rgba(16,185,129,0.35);
+    }
+
+    .btn-cyan {
+      background: linear-gradient(135deg, var(--titan-cyan), var(--titan-blue));
+      color: white;
+      box-shadow: 0 4px 20px rgba(6,182,212,0.35);
+    }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 24px 0;
+    }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-bar {
+      height: 5px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--titan-purple), var(--titan-cyan));
+      transition: width 1s ease;
+    }
+
+    /* ===== RATING STARS ===== */
+    .stars { color: var(--titan-amber); font-size: 12px; letter-spacing: 1px; }
+
+    /* ===== TAG CHIPS ===== */
+    .tag {
+      display: inline-block;
+      font-size: 10.5px;
+      padding: 2px 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: rgba(255,255,255,0.5);
+      font-family: var(--font-mono);
+    }
+
+    /* ===== LIVE INDICATOR ===== */
+    .live-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--titan-emerald);
+      font-family: var(--font-mono);
+    }
+
+    .live-dot::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: var(--titan-emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(16,185,129,0.8);
+      animation: live-pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes live-pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
+    }
+
+    /* ===========================
+       PAGE-SPECIFIC STYLES
+    =========================== */
+
+    /* ===== HOME PAGE ===== */
+    .hero-header {
+      background: linear-gradient(135deg, rgba(139,92,246,0.12) 0%, rgba(6,182,212,0.06) 100%);
+      border: 1px solid rgba(139,92,246,0.2);
+      border-radius: 22px;
+      padding: 28px 32px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-greeting {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #fff, rgba(139,92,246,0.8));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-tagline {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      max-width: 500px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    /* Quick Stats Row */
+    .quick-stats {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .q-stat {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 14px;
+    }
+
+    .q-stat-icon { font-size: 16px; }
+    .q-stat-val { font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: white; }
+    .q-stat-label { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+    /* ===== MODULE CARDS ===== */
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .module-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .module-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+      background: radial-gradient(circle at top left, var(--mod-color-glow), transparent 60%);
+      border-radius: inherit;
+    }
+
+    .module-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--mod-color-border, rgba(139,92,246,0.3));
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5), var(--mod-color-shadow);
+    }
+
+    .module-card:hover::before { opacity: 1; }
+
+    .mod-icon {
+      font-size: 36px;
+      margin-bottom: 14px;
+      display: block;
+      filter: drop-shadow(0 0 10px var(--mod-glow-color));
+    }
+
+    .mod-name {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .mod-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.5;
+    }
+
+    .mod-stat {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--mod-stat-color);
+      font-weight: 600;
+    }
+
+    /* ===== MARKETPLACE PAGE ===== */
+    .listing-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .listing-card:hover {
+      border-color: rgba(139,92,246,0.25);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+
+    .listing-image {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(6,182,212,0.05));
+      border-bottom: 1px solid var(--border);
+    }
+
+    .listing-body { padding: 16px; }
+
+    .listing-title {
+      font-weight: 600;
+      font-size: 14px;
+      color: white;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .listing-price {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 2px;
+    }
+
+    .listing-coins {
+      font-size: 12px;
+      color: var(--titan-amber);
+      font-family: var(--font-mono);
+      margin-bottom: 12px;
+    }
+
+    .listing-seller {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .seller-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--titan-cyan), var(--titan-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    /* ===== WALLET PAGE ===== */
+    .wallet-hero {
+      background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(6,182,212,0.1), rgba(99,102,241,0.15));
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 22px;
+      padding: 32px;
+      margin-bottom: 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wallet-balance-label {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.4);
+      font-family: var(--font-mono);
+      margin-bottom: 10px;
+    }
+
+    .wallet-balance {
+      font-family: var(--font-display);
+      font-size: 54px;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -2px;
+      text-shadow: 0 0 40px rgba(139,92,246,0.5);
+      margin-bottom: 4px;
+    }
+
+    .wallet-coins {
+      font-size: 18px;
+      color: var(--titan-amber);
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    .txn-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .txn-item:last-child { border-bottom: none; }
+
+    .txn-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .txn-desc { flex: 1; }
+    .txn-title { font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.85); margin-bottom: 2px; }
+    .txn-meta { font-size: 11px; color: rgba(255,255,255,0.35); font-family: var(--font-mono); }
+
+    .txn-amount {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .txn-amount.credit { color: var(--titan-emerald); }
+    .txn-amount.debit { color: var(--titan-rose); }
+
+    /* ===== SOCIAL PAGE ===== */
+    .post-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .post-card:hover { border-color: var(--border-active); }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .post-author-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .post-author-name { font-weight: 600; font-size: 14px; color: white; }
+    .post-author-meta { font-size: 12px; color: rgba(255,255,255,0.4); }
+    .post-time { margin-left: auto; font-size: 11px; color: rgba(255,255,255,0.3); font-family: var(--font-mono); }
+
+    .post-content {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 16px;
+    }
+
+    .post-actions {
+      display: flex;
+      gap: 4px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .post-action-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      background: none;
+      border: none;
+      font-family: var(--font-sans);
+    }
+
+    .post-action-btn:hover {
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.9);
+    }
+
+    .post-action-btn.liked { color: var(--titan-rose); }
+
+    /* ===== HOSTEL PAGE ===== */
+    .room-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .room-card:hover {
+      border-color: rgba(6,182,212,0.25);
+      transform: translateY(-2px);
+    }
+
+    .maint-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    /* ===== SKILLSWAP PAGE ===== */
+    .skill-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .skill-card:hover {
+      border-color: rgba(139,92,246,0.25);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+
+    /* ===== FOOD PAGE ===== */
+    .canteen-status {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .canteen-status:hover { border-color: var(--border-active); }
+
+    .canteen-icon { font-size: 32px; }
+    .canteen-crowd-bar { flex: 1; }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .menu-item:hover {
+      border-color: var(--border-active);
+      background: var(--bg-raised);
+    }
+
+    .food-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(244,63,94,0.08));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    /* ===== ADMIN PAGE ===== */
+    .admin-hero {
+      background: linear-gradient(135deg, rgba(244,63,94,0.08), rgba(139,92,246,0.12), rgba(6,182,212,0.06));
+      border: 1px solid rgba(244,63,94,0.15);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Chart Bars */
+    .chart-container {
+      height: 180px;
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      padding: 16px 0 0;
+    }
+
+    .chart-bar-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chart-bar {
+      width: 100%;
+      border-radius: 6px 6px 0 0;
+      transition: height 1s ease;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .chart-bar:hover { filter: brightness(1.3); }
+
+    .chart-bar-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+    }
+
+    /* ===========================
+       LOADING & ANIMATIONS
+    =========================== */
+    .loading-skeleton {
+      background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.07) 50%, rgba(255,255,255,0.03) 75%);
+      background-size: 200% 100%;
+      animation: skeleton 1.5s infinite;
+      border-radius: 8px;
+    }
+
+    @keyframes skeleton {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Number counter animation */
+    .counter { transition: all 0.5s ease; }
+
+    /* ===== TOAST NOTIFICATIONS ===== */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(14,19,32,0.97);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.9);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      animation: slideIn 0.3s ease;
+      min-width: 300px;
+    }
+
+    .toast.success { border-left: 3px solid var(--titan-emerald); }
+    .toast.info { border-left: 3px solid var(--titan-cyan); }
+    .toast.warning { border-left: 3px solid var(--titan-amber); }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 32px;
+      width: 90%;
+      max-width: 520px;
+      animation: modalIn 0.3s ease;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+    }
+
+    @keyframes modalIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: white;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 18px;
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover { color: white; background: rgba(255,255,255,0.1); }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      :root { --sidebar-width: 0px; }
+      .sidebar { display: none; }
+      .app-shell { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .grid-2 { grid-template-columns: 1fr; }
+      .page { padding: 16px 16px 80px; }
+      .hero-greeting { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<div class="bg-mesh"></div>
+<div class="scanline"></div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalContent" style="position:relative">
+    <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('active')">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div class="app-shell">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <!-- Logo -->
+    <div class="sidebar-logo">
+      <div class="logo-icon">C⚡</div>
+      <div class="logo-text">
+        <div class="name">CampusOS</div>
+        <div class="badge">TITAN X • v2.0.0</div>
+      </div>
+    </div>
+
+    <!-- User Profile -->
+    <div class="sidebar-profile" onclick="showToast('Profile • Avrojit Saha • CS 3rd Year', 'info')">
+      <div class="avatar">AS</div>
+      <div class="profile-info">
+        <div class="pname">Avrojit Saha</div>
+        <div class="pdept">CS • 3rd Year</div>
+      </div>
+      <div class="profile-coins">
+        <span class="coin-icon">🪙</span>
+        <span class="coin-val">4,250</span>
+      </div>
+    </div>
+
+    <!-- Nav: Main -->
+    <div class="nav-section">
+      <div class="nav-section-label">Command Center</div>
+      <div class="nav-item active" id="nav-home" onclick="navigate('home')">
+        <div class="nav-icon" style="background:rgba(139,92,246,0.15)">🏠</div>
+        <span class="nav-label">Home Base</span>
+        <span class="nav-badge live">LIVE</span>
+      </div>
+      <div class="nav-item" id="nav-marketplace" onclick="navigate('marketplace')">
+        <div class="nav-icon" style="background:rgba(6,182,212,0.12)">🏪</div>
+        <span class="nav-label">Marketplace</span>
+        <span class="nav-badge count">847</span>
+      </div>
+      <div class="nav-item" id="nav-logistics" onclick="navigate('logistics')">
+        <div class="nav-icon" style="background:rgba(245,158,11,0.12)">🚚</div>
+        <span class="nav-label">Logistics</span>
+        <span class="nav-badge live">23</span>
+      </div>
+      <div class="nav-item" id="nav-skillswap" onclick="navigate('skillswap')">
+        <div class="nav-icon" style="background:rgba(16,185,129,0.12)">🧠</div>
+        <span class="nav-label">SkillSwap</span>
+        <span class="nav-badge new">142</span>
+      </div>
+      <div class="nav-item" id="nav-hostel" onclick="navigate('hostel')">
+        <div class="nav-icon" style="background:rgba(99,102,241,0.15)">🏠</div>
+        <span class="nav-label">Hostel / PG</span>
+      </div>
+      <div class="nav-item" id="nav-food" onclick="navigate('food')">
+        <div class="nav-icon" style="background:rgba(244,63,94,0.12)">🍽️</div>
+        <span class="nav-label">Food Canteen</span>
+        <span class="nav-badge emerald" style="background:rgba(16,185,129,0.15);color:var(--titan-emerald);border:1px solid rgba(16,185,129,0.25);font-size:10px;padding:2px 7px;border-radius:6px;font-family:var(--font-mono);font-weight:700">Open</span>
+      </div>
+      <div class="nav-item" id="nav-social" onclick="navigate('social')">
+        <div class="nav-icon" style="background:rgba(59,130,246,0.12)">💬</div>
+        <span class="nav-label">Social Hub</span>
+        <span class="nav-badge count">12</span>
+      </div>
+    </div>
+
+    <!-- Nav: Finance -->
+    <div class="nav-section" style="margin-top:8px">
+      <div class="nav-section-label">Fintech</div>
+      <div class="nav-item" id="nav-wallet" onclick="navigate('wallet')">
+        <div class="nav-icon" style="background:rgba(245,158,11,0.12)">💰</div>
+        <span class="nav-label">TITAN Wallet</span>
+      </div>
+      <div class="nav-item" id="nav-admin" onclick="navigate('admin')">
+        <div class="nav-icon" style="background:rgba(244,63,94,0.12)">⚡</div>
+        <span class="nav-label">Admin Control</span>
+        <span class="nav-badge new">NEW</span>
+      </div>
+    </div>
+
+    <!-- Platform Stats -->
+    <div class="sidebar-bottom">
+      <div class="platform-stats">
+        <div class="nav-section-label" style="margin-bottom:10px">Platform Pulse</div>
+        <div class="stat-row">
+          <span class="stat-label">🟢 Online Users</span>
+          <span class="stat-value green" id="onlineCount">1,243</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">📦 Active Orders</span>
+          <span class="stat-value cyan" id="activeOrders">234</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">💰 Today GMV</span>
+          <span class="stat-value amber">₹2.84L</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Search marketplace, skills, people..." id="searchInput" oninput="handleSearch(this.value)" />
+      <span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.2);padding:2px 6px;background:rgba(255,255,255,0.05);border-radius:4px">⌘K</span>
+    </div>
+
+    <div class="topbar-actions">
+      <button class="topbar-btn" onclick="showToast('🎉 TITAN Hackathon 2024 — ₹5L prize! Register now', 'info')" title="Events">🎉</button>
+      <button class="topbar-btn" onclick="showNotificationModal()" title="Notifications">
+        🔔
+        <span class="notif-dot"></span>
+      </button>
+      <button class="topbar-btn" onclick="showToast('Settings coming soon in v2.1', 'info')" title="Settings">⚙️</button>
+      <div class="topbar-separator"></div>
+      <div class="topbar-avatar" onclick="showToast('Avrojit Saha • CS 3rd Year • Trust Score: 98%', 'info')">AS</div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- ========================= HOME ========================= -->
+    <div class="page active" id="page-home">
+
+      <!-- Hero Header -->
+      <div class="hero-header">
+        <div id="timeIcon" style="font-size:28px;margin-bottom:8px">🌅</div>
+        <div class="hero-greeting" id="heroGreeting">Good Morning, Titan</div>
+        <div class="hero-tagline" id="heroTagline">Your campus digital empire awaits. Here's your daily briefing.</div>
+
+        <div class="quick-stats">
+          <div class="q-stat">
+            <span class="q-stat-icon">🪙</span>
+            <div>
+              <div class="q-stat-val">4,250</div>
+              <div class="q-stat-label">Campus Coins</div>
+            </div>
+          </div>
+          <div class="q-stat">
+            <span class="q-stat-icon">📦</span>
+            <div>
+              <div class="q-stat-val">47</div>
+              <div class="q-stat-label">Total Orders</div>
+            </div>
+          </div>
+          <div class="q-stat">
+            <span class="q-stat-icon">⭐</span>
+            <div>
+              <div class="q-stat-val">98%</div>
+              <div class="q-stat-label">Trust Score</div>
+            </div>
+          </div>
+          <div class="q-stat">
+            <span class="q-stat-icon">🧠</span>
+            <div>
+              <div class="q-stat-val">3</div>
+              <div class="q-stat-label">Active Skills</div>
+            </div>
+          </div>
+          <div class="q-stat" style="margin-left:auto;background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.2)">
+            <span class="live-dot">LIVE</span>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="navigate('marketplace')">🏪 Browse Market</button>
+          <button class="btn btn-secondary" onclick="navigate('skillswap')">🧠 My Skills</button>
+          <button class="btn btn-secondary" onclick="navigate('wallet')">💰 Wallet</button>
+        </div>
+      </div>
+
+      <!-- Live Stats -->
+      <div class="stats-grid">
+        <div class="stat-card" style="--stat-color: linear-gradient(90deg, var(--titan-purple), var(--titan-indigo))">
+          <span class="stat-icon">📊</span>
+          <div class="stat-number counter" id="stat-gmv">₹7.48L</div>
+          <div class="stat-name">Monthly GMV</div>
+          <div class="stat-change up">↑ 19.8% vs last month</div>
+        </div>
+        <div class="stat-card" style="--stat-color: linear-gradient(90deg, var(--titan-cyan), var(--titan-blue))">
+          <span class="stat-icon">👥</span>
+          <div class="stat-number counter" id="stat-users">12,847</div>
+          <div class="stat-name">Active Users</div>
+          <div class="stat-change up">↑ 18.9% new this month</div>
+        </div>
+        <div class="stat-card" style="--stat-color: linear-gradient(90deg, var(--titan-amber), #e07b00)">
+          <span class="stat-icon">🪙</span>
+          <div class="stat-number counter" id="stat-coins">12.84L</div>
+          <div class="stat-name">Coins Market Cap</div>
+          <div class="stat-change up">↑ 4.2% this week</div>
+        </div>
+        <div class="stat-card" style="--stat-color: linear-gradient(90deg, var(--titan-emerald), #059669)">
+          <span class="stat-icon">🚀</span>
+          <div class="stat-number">$4.2M</div>
+          <div class="stat-name">Valuation</div>
+          <div class="stat-change up">Seed Round Ready</div>
+        </div>
+      </div>
+
+      <!-- Modules Grid -->
+      <div class="section-header">
+        <div class="section-title">🌐 Platform Modules</div>
+        <span class="live-dot">7 ACTIVE</span>
+      </div>
+
+      <div class="module-grid">
+        <div class="module-card" onclick="navigate('marketplace')"
+          style="--mod-color-border: rgba(6,182,212,0.3); --mod-color-glow: rgba(6,182,212,0.08); --mod-color-shadow: 0 0 30px rgba(6,182,212,0.1)">
+          <span class="mod-icon" style="--mod-glow-color: rgba(6,182,212,0.5)">🏪</span>
+          <div class="mod-name">Marketplace</div>
+          <div class="mod-desc">Buy & sell electronics, books, essentials. AI-powered search. Escrow protected.</div>
+          <div class="mod-stat" style="--mod-stat-color: var(--titan-cyan)">● 847 active listings</div>
+        </div>
+
+        <div class="module-card" onclick="navigate('logistics')"
+          style="--mod-color-border: rgba(245,158,11,0.3); --mod-color-glow: rgba(245,158,11,0.06)">
+          <span class="mod-icon" style="--mod-glow-color: rgba(245,158,11,0.5)">🚚</span>
+          <div class="mod-name">Logistics</div>
+          <div class="mod-desc">Gig-economy delivery by students for students. Live GPS tracking. OTP secured.</div>
+          <div class="mod-stat" style="--mod-stat-color: var(--titan-amber)">● 23 active deliveries</div>
+        </div>
+
+        <div class="module-card" onclick="navigate('skillswap')"
+          style="--mod-color-border: rgba(16,185,129,0.3); --mod-color-glow: rgba(16,185,129,0.06)">
+          <span class="mod-icon" style="--mod-glow-color: rgba(16,185,129,0.5)">🧠</span>
+          <div class="mod-name">SkillSwap</div>
+          <div class="mod-desc">Monetize or barter your skills. AI skill matching. Pay or exchange services.</div>
+          <div class="mod-stat" style="--mod-stat-color: var(--titan-emerald)">● 142 open listings</div>
+        </div>
+
+        <div class="module-card" onclick="navigate('hostel')"
+          style="--mod-color-border: rgba(99,102,241,0.3); --mod-color-glow: rgba(99,102,241,0.06)">
+          <span class="mod-icon" style="--mod-glow-color: rgba(99,102,241,0.5)">🏠</span>
+          <div class="mod-name">Hostel / PG</div>
+          <div class="mod-desc">Room finder, digital rent payment, maintenance tickets, block updates.</div>
+          <div class="mod-stat" style="--mod-stat-color: var(--titan-indigo)">● B-302 • Bhagat Singh</div>
+        </div>
+
+        <div class="module-card" onclick="navigate('food')"
+          style="--mod-color-border: rgba(244,63,94,0.3); --mod-color-glow: rgba(244,63,94,0.06)">
+          <span class="mod-icon" style="--mod-glow-color: rgba(244,63,94,0.5)">🍽️</span>
+          <div class="mod-name">Food Canteen</div>
+          <div class="mod-desc">Order ahead, live crowd tracker, mess subscriptions, dietary preferences.</div>
+          <div class="mod-stat" style="--mod-stat-color: var(--titan-rose)">● Main: Low crowd • 5min</div>
+        </div>
+
+        <div class="module-card" onclick="navigate('social')"
+          style="--mod-color-border: rgba(59,130,246,0.3); --mod-color-glow: rgba(59,130,246,0.06)">
+          <span class="mod-icon" style="--mod-glow-color: rgba(59,130,246,0.5)">💬</span>
+          <div class="mod-name">Social Hub</div>
+          <div class="mod-desc">Campus feed, events, stories, and real-time group chat powered by WebSocket.</div>
+          <div class="mod-stat" style="--mod-stat-color: var(--titan-blue)">● 1,243 online now</div>
+        </div>
+
+        <div class="module-card" onclick="navigate('wallet')"
+          style="--mod-color-border: rgba(245,158,11,0.35); --mod-color-glow: rgba(245,158,11,0.07)">
+          <span class="mod-icon" style="--mod-glow-color: rgba(245,158,11,0.5)">💰</span>
+          <div class="mod-name">TITAN Wallet</div>
+          <div class="mod-desc">Campus Coins + Rupee wallet. Escrow system, UPI integration, instant transfers.</div>
+          <div class="mod-stat" style="--mod-stat-color: var(--titan-amber)">● ₹8,500 + 🪙4,250 coins</div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="section-header">
+        <div class="section-title">⚡ Recent Activity</div>
+        <a class="see-all" onclick="navigate('wallet')">View all</a>
+      </div>
+
+      <div class="titan-card" style="padding:0">
+        <div style="padding:20px">
+          <div class="txn-item">
+            <div class="txn-icon" style="background:rgba(16,185,129,0.12)">💸</div>
+            <div class="txn-desc">
+              <div class="txn-title">SkillSwap session payment received</div>
+              <div class="txn-meta">from Rohan M. • Today 2:30 PM • SkillSwap</div>
+            </div>
+            <div class="txn-amount credit">+₹250</div>
+          </div>
+          <div class="txn-item">
+            <div class="txn-icon" style="background:rgba(244,63,94,0.12)">🍛</div>
+            <div class="txn-desc">
+              <div class="txn-title">Chicken Biryani — Main Canteen</div>
+              <div class="txn-meta">Today 12:45 PM • Food</div>
+            </div>
+            <div class="txn-amount debit">-₹120</div>
+          </div>
+          <div class="txn-item">
+            <div class="txn-icon" style="background:rgba(245,158,11,0.12)">🪙</div>
+            <div class="txn-desc">
+              <div class="txn-title">Daily login bonus</div>
+              <div class="txn-meta">Today 8:00 AM • Rewards</div>
+            </div>
+            <div class="txn-amount" style="color:var(--titan-amber)">+🪙50</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================= MARKETPLACE ========================= -->
+    <div class="page" id="page-marketplace">
+      <div style="margin-bottom:24px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+          <div class="page-title">🏪 Marketplace</div>
+          <span class="badge badge-emerald" style="font-size:11px">847 Listings</span>
+        </div>
+        <div class="page-subtitle">Buy & sell within campus. All transactions escrow-protected.</div>
+      </div>
+
+      <!-- Filters -->
+      <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap">
+        <button class="btn btn-primary" style="font-size:12px;padding:7px 14px" onclick="filterListings('all')">All</button>
+        <button class="btn btn-secondary" style="font-size:12px;padding:7px 14px" onclick="filterListings('Electronics')">📱 Electronics</button>
+        <button class="btn btn-secondary" style="font-size:12px;padding:7px 14px" onclick="filterListings('Books')">📚 Books</button>
+        <button class="btn btn-secondary" style="font-size:12px;padding:7px 14px" onclick="filterListings('Furniture')">🪑 Furniture</button>
+        <button class="btn btn-secondary" style="font-size:12px;padding:7px 14px" onclick="filterListings('Sports')">⚽ Sports</button>
+        <div style="margin-left:auto">
+          <button class="btn btn-cyan" style="font-size:12px;padding:7px 14px" onclick="showListItemModal()">+ List Item</button>
+        </div>
+      </div>
+
+      <!-- Listings Grid -->
+      <div class="grid-auto" id="listingsGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ========================= LOGISTICS ========================= -->
+    <div class="page" id="page-logistics">
+      <div style="margin-bottom:24px">
+        <div class="page-title">🚚 Logistics Hub</div>
+        <div class="page-subtitle">Campus gig-economy delivery network • Live tracking</div>
+      </div>
+
+      <div class="stats-grid" style="grid-template-columns:repeat(4,1fr)">
+        <div class="stat-card" style="--stat-color:linear-gradient(90deg,var(--titan-amber),#e07b00)">
+          <span class="stat-icon">🚚</span>
+          <div class="stat-number">23</div>
+          <div class="stat-name">Active Deliveries</div>
+          <div class="stat-change up"><span class="live-dot" style="font-size:10px">LIVE</span></div>
+        </div>
+        <div class="stat-card" style="--stat-color:linear-gradient(90deg,var(--titan-emerald),#059669)">
+          <span class="stat-icon">⏱️</span>
+          <div class="stat-number">18 min</div>
+          <div class="stat-name">Avg Delivery Time</div>
+          <div class="stat-change up">↑ 2min faster than last week</div>
+        </div>
+        <div class="stat-card" style="--stat-color:linear-gradient(90deg,var(--titan-cyan),var(--titan-blue))">
+          <span class="stat-icon">🏍️</span>
+          <div class="stat-number">47</div>
+          <div class="stat-name">Gig Riders Online</div>
+        </div>
+        <div class="stat-card" style="--stat-color:linear-gradient(90deg,var(--titan-purple),var(--titan-indigo))">
+          <span class="stat-icon">✅</span>
+          <div class="stat-number">98.4%</div>
+          <div class="stat-name">Success Rate</div>
+          <div class="stat-change up">↑ Industry-leading</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <div class="section-header">
+            <div class="section-title">📍 Active Deliveries</div>
+            <span class="live-dot">TRACKING</span>
+          </div>
+
+          <div class="titan-card" style="padding:20px;margin-bottom:16px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+              <div style="font-size:32px">📦</div>
+              <div>
+                <div style="font-weight:600;font-size:15px;color:white">MacBook Charger</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.4)">Block A → Block C, Room 304</div>
+              </div>
+              <div style="margin-left:auto;text-align:right">
+                <div style="font-family:var(--font-mono);font-size:20px;font-weight:700;color:var(--titan-amber)">8 min</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.4)">ETA</div>
+              </div>
+            </div>
+            <div class="progress-bar" style="margin-bottom:12px">
+              <div class="progress-fill" style="width:65%;background:linear-gradient(90deg,var(--titan-amber),var(--titan-emerald))"></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="avatar" style="width:32px;height:32px;font-size:12px;background:linear-gradient(135deg,var(--titan-cyan),var(--titan-blue))">KM</div>
+              <div style="font-size:13px;color:rgba(255,255,255,0.7)">Karan Mehta • ⭐4.9 • 284 deliveries</div>
+              <button class="btn btn-secondary" style="margin-left:auto;font-size:12px;padding:5px 12px" onclick="showToast('Calling Karan...', 'info')">📞 Call</button>
+            </div>
+            <div style="margin-top:12px;padding:10px;background:rgba(139,92,246,0.08);border-radius:10px;font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,0.5)">
+              OTP: <strong style="color:var(--titan-purple);font-size:16px;letter-spacing:3px">4872</strong>
+            </div>
+          </div>
+
+          <div class="titan-card" style="padding:20px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+              <div style="font-size:32px">🍛</div>
+              <div>
+                <div style="font-weight:600;font-size:15px;color:white">Canteen Order — 2 Meals + Chai</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.4)">Main Canteen → Library Room 3</div>
+              </div>
+              <div style="margin-left:auto;text-align:right">
+                <div style="font-family:var(--font-mono);font-size:20px;font-weight:700;color:var(--titan-emerald)">5 min</div>
+              </div>
+            </div>
+            <div class="progress-bar" style="margin-bottom:12px">
+              <div class="progress-fill" style="width:85%;background:linear-gradient(90deg,var(--titan-emerald),var(--titan-cyan))"></div>
+            </div>
+            <span class="badge badge-emerald">Almost there!</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-header">
+            <div class="section-title">💼 Become a Gig Rider</div>
+          </div>
+
+          <div class="titan-card" style="padding:24px;background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(16,185,129,0.06))">
+            <div style="font-size:48px;margin-bottom:16px">🏍️</div>
+            <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:white;margin-bottom:8px">Earn ₹200–₹500/day</div>
+            <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:20px;line-height:1.6">Flexible hours. Deliver within campus. Earn real money + Campus Coins between classes.</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+              <div style="text-align:center;padding:12px;background:rgba(255,255,255,0.04);border-radius:12px">
+                <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--titan-amber)">₹284</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.4)">Avg Daily Earn</div>
+              </div>
+              <div style="text-align:center;padding:12px;background:rgba(255,255,255,0.04);border-radius:12px">
+                <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--titan-cyan)">4.9⭐</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.4)">Platform Rating</div>
+              </div>
+            </div>
+            <button class="btn btn-emerald" style="width:100%" onclick="showToast('🏍️ Rider registration coming soon! Join waitlist added.', 'success')">Join as Gig Rider</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================= SKILLSWAP ========================= -->
+    <div class="page" id="page-skillswap">
+      <div style="margin-bottom:24px">
+        <div class="page-title">🧠 SkillSwap Exchange</div>
+        <div class="page-subtitle">Monetize your expertise. Learn from peers. Pay or barter.</div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap">
+        <button class="btn btn-primary" style="font-size:12px;padding:7px 14px">All Skills</button>
+        <button class="btn btn-secondary" style="font-size:12px;padding:7px 14px">💻 Programming</button>
+        <button class="btn btn-secondary" style="font-size:12px;padding:7px 14px">🎨 Design</button>
+        <button class="btn btn-secondary" style="font-size:12px;padding:7px 14px">🎵 Music</button>
+        <button class="btn btn-secondary" style="font-size:12px;padding:7px 14px">📚 Academics</button>
+        <button class="btn btn-cyan" style="margin-left:auto;font-size:12px;padding:7px 14px" onclick="showToast('Listing your skill... Coming soon!', 'info')">+ List Your Skill</button>
+      </div>
+
+      <div class="grid-3" id="skillsGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ========================= HOSTEL ========================= -->
+    <div class="page" id="page-hostel">
+      <div style="margin-bottom:24px">
+        <div class="page-title">🏠 Hostel & PG Manager</div>
+        <div class="page-subtitle">Your room info, maintenance, PG listings and block updates.</div>
+      </div>
+
+      <!-- My Room -->
+      <div style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(139,92,246,0.08));border:1px solid rgba(99,102,241,0.25);border-radius:20px;padding:24px;margin-bottom:24px">
+        <div style="display:flex;align-items:center;gap:16px">
+          <div style="font-size:52px">🏠</div>
+          <div>
+            <div style="font-size:13px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);font-family:var(--font-mono);margin-bottom:4px">My Room</div>
+            <div style="font-family:var(--font-display);font-size:30px;font-weight:800;color:white;letter-spacing:-1px">B-302</div>
+            <div style="font-size:14px;color:rgba(255,255,255,0.5)">Bhagat Singh Block • 3rd Floor • Single Occupancy</div>
+          </div>
+          <div style="margin-left:auto;display:flex;gap:10px">
+            <button class="btn btn-secondary" onclick="showToast('Rent of ₹8,500 paid via TITAN Wallet ✓', 'success')">💳 Pay Rent</button>
+            <button class="btn btn-primary" onclick="showMaintenanceModal()">🔧 Raise Issue</button>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.07)">
+          <div style="text-align:center">
+            <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--titan-cyan)">WiFi ✓</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4)">Connected</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--titan-rose)">AC ⚠️</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4)">Under repair</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--titan-emerald)">Laundry ✓</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4)">Floor 3</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--titan-amber)">₹8,500</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4)">Monthly Rent</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <div class="section-title" style="margin-bottom:16px">🔧 Maintenance Tickets</div>
+          <div class="maint-item" style="border-left:3px solid var(--titan-rose)">
+            <div style="font-size:28px">❄️</div>
+            <div style="flex:1">
+              <div style="font-weight:600;font-size:14px;color:white">AC Compressor not working</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.4)">Room B-302 • Reported Jan 14 • High Priority</div>
+              <div style="margin-top:8px"><span class="badge badge-amber">In Progress</span></div>
+            </div>
+            <div style="font-size:12px;color:var(--titan-cyan);font-family:var(--font-mono)">ETA:<br>Today 6PM</div>
+          </div>
+          <div class="maint-item" style="border-left:3px solid var(--titan-amber)">
+            <div style="font-size:28px">🚿</div>
+            <div style="flex:1">
+              <div style="font-weight:600;font-size:14px;color:white">Bathroom faucet dripping</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.4)">Room A-108 • Reported Jan 13 • Medium</div>
+              <div style="margin-top:8px"><span class="badge badge-rose">Pending</span></div>
+            </div>
+          </div>
+          <button class="btn btn-secondary" style="width:100%;margin-top:8px" onclick="showMaintenanceModal()">+ Raise New Ticket</button>
+        </div>
+
+        <div>
+          <div class="section-title" style="margin-bottom:16px">🏠 Nearby PG Listings</div>
+          <div class="titan-card" style="padding:20px;margin-bottom:12px">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+              <div style="font-size:36px">🏢</div>
+              <div>
+                <div style="font-weight:700;font-size:15px;color:white">TechPark PG — Premium</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.4)">500m from Gate 2</div>
+              </div>
+              <div style="margin-left:auto">
+                <span class="badge badge-emerald">Available</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:14px">
+              <div>
+                <div style="font-family:var(--font-display);font-size:22px;font-weight:800;color:white">₹8,500<span style="font-size:13px;color:rgba(255,255,255,0.4)">/mo</span></div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.4)">Single Occupancy</div>
+              </div>
+              <div class="stars">⭐⭐⭐⭐⭐ <span style="color:rgba(255,255,255,0.4);font-size:12px">4.7</span></div>
+            </div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">
+              <span class="tag">WiFi</span>
+              <span class="tag">AC</span>
+              <span class="tag">Meals</span>
+              <span class="tag">Laundry</span>
+              <span class="tag">Gym</span>
+            </div>
+            <button class="btn btn-primary" style="width:100%;font-size:13px" onclick="showToast('Connecting you with TechPark PG owner...', 'success')">Book a Visit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================= FOOD ========================= -->
+    <div class="page" id="page-food">
+      <div style="margin-bottom:24px">
+        <div class="page-title">🍽️ Campus Food Court</div>
+        <div class="page-subtitle">Real-time canteen crowd tracker. Order ahead. Mess subscriptions.</div>
+      </div>
+
+      <!-- Canteen Status -->
+      <div class="section-title" style="margin-bottom:16px">📍 Canteen Status — <span class="live-dot">LIVE</span></div>
+
+      <div style="margin-bottom:28px">
+        <div class="canteen-status" style="border-left:3px solid var(--titan-emerald)">
+          <div class="canteen-icon">🍛</div>
+          <div class="canteen-crowd-bar">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+              <span style="font-weight:600;font-size:14px;color:white">Main Canteen</span>
+              <span class="badge badge-emerald">Open • Low Crowd</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:23%;background:linear-gradient(90deg,var(--titan-emerald),var(--titan-cyan))"></div>
+            </div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:6px">23% capacity • ~5 min wait • 7AM–10:30PM</div>
+          </div>
+          <button class="btn btn-emerald" style="font-size:12px;padding:7px 14px" onclick="showToast('Ordering from Main Canteen...', 'success')">Order Now</button>
+        </div>
+
+        <div class="canteen-status" style="border-left:3px solid var(--titan-amber)">
+          <div class="canteen-icon">🍜</div>
+          <div class="canteen-crowd-bar">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+              <span style="font-weight:600;font-size:14px;color:white">North Campus Dhaba</span>
+              <span class="badge badge-amber">Open • Medium Crowd</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:54%;background:linear-gradient(90deg,var(--titan-amber),var(--titan-rose))"></div>
+            </div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:6px">54% capacity • ~12 min wait</div>
+          </div>
+          <button class="btn btn-secondary" style="font-size:12px;padding:7px 14px" onclick="showToast('Ordering from North Dhaba...', 'info')">Order</button>
+        </div>
+
+        <div class="canteen-status" style="opacity:0.5;border-left:3px solid rgba(255,255,255,0.1)">
+          <div class="canteen-icon">☕</div>
+          <div class="canteen-crowd-bar">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+              <span style="font-weight:600;font-size:14px;color:white">South Wing Cafe</span>
+              <span class="badge badge-rose">Closed</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:0%;"></div>
+            </div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:6px">Opens at 8:30 AM tomorrow</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Menu -->
+      <div class="section-header">
+        <div class="section-title">🔥 Today's Trending Menu</div>
+      </div>
+
+      <div id="menuList">
+        <div class="menu-item">
+          <div class="food-icon">🫓</div>
+          <div style="flex:1">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+              <div style="font-weight:600;font-size:14px;color:white">Masala Dosa Combo</div>
+              <span class="badge badge-emerald" style="font-size:10px">🌿 Veg</span>
+              <span class="badge badge-rose" style="font-size:10px">🔥 Trending</span>
+            </div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.4)">Main Canteen • 7 min prep • 340 kcal</div>
+            <div class="stars" style="margin-top:4px">⭐⭐⭐⭐⭐ <span style="color:rgba(255,255,255,0.4);font-size:11px">4.6</span></div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:white">₹45</div>
+            <div style="font-size:11px;color:var(--titan-amber);font-family:var(--font-mono)">🪙5 coins</div>
+            <button class="btn btn-primary" style="margin-top:8px;font-size:12px;padding:6px 14px" onclick="showToast('🍛 Masala Dosa added to cart! • Pickup in 7 min', 'success')">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <div class="food-icon">🍗</div>
+          <div style="flex:1">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+              <div style="font-weight:600;font-size:14px;color:white">Chicken Biryani (Full)</div>
+              <span class="badge badge-rose" style="font-size:10px">🔥 Best Seller</span>
+            </div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.4)">Main Canteen • 15 min prep • 650 kcal</div>
+            <div class="stars" style="margin-top:4px">⭐⭐⭐⭐⭐ <span style="color:rgba(255,255,255,0.4);font-size:11px">4.8</span></div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:white">₹120</div>
+            <div style="font-size:11px;color:var(--titan-amber);font-family:var(--font-mono)">🪙12 coins</div>
+            <button class="btn btn-primary" style="margin-top:8px;font-size:12px;padding:6px 14px" onclick="showToast('🍗 Chicken Biryani added! Ready in 15 min', 'success')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mess Subscription -->
+      <div style="margin-top:24px">
+        <div class="section-title" style="margin-bottom:16px">📋 Mess Subscriptions</div>
+        <div class="titan-card" style="padding:24px;background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(16,185,129,0.05))">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:white;margin-bottom:4px">30-Day Full Mess Plan</div>
+              <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:12px">Breakfast + Lunch + Dinner • Saves ₹800/month</div>
+              <span class="badge badge-amber">Most Popular</span>
+            </div>
+            <div style="text-align:right">
+              <div style="font-family:var(--font-display);font-size:32px;font-weight:900;color:white">₹3,500</div>
+              <div style="font-size:12px;color:var(--titan-emerald)">Save ₹800 vs daily pricing</div>
+              <button class="btn btn-emerald" style="margin-top:12px" onclick="showToast('✅ Mess Plan activated! ₹3,500 debited from TITAN Wallet', 'success')">Subscribe Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================= SOCIAL ========================= -->
+    <div class="page" id="page-social">
+      <div style="margin-bottom:24px">
+        <div class="page-title">💬 Social Hub</div>
+        <div class="page-subtitle">Campus feed, events, and real-time community.</div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-bottom:24px">
+        <button class="btn btn-primary" style="font-size:12px;padding:7px 14px">📰 Feed</button>
+        <button class="btn btn-secondary" style="font-size:12px;padding:7px 14px">🎉 Events</button>
+        <button class="btn btn-secondary" style="font-size:12px;padding:7px 14px">💬 Chats</button>
+        <button class="btn btn-cyan" style="margin-left:auto;font-size:12px;padding:7px 14px" onclick="showToast('Post creation modal coming in v2.1!', 'info')">✏️ Post</button>
+      </div>
+
+      <div id="socialFeed">
+        <!-- Post 1: Official -->
+        <div class="post-card" style="border-color:rgba(139,92,246,0.25);background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(6,182,212,0.04))">
+          <div class="post-header">
+            <div class="post-author-avatar" style="background:linear-gradient(135deg,var(--titan-purple),var(--titan-cyan));font-size:18px">⚡</div>
+            <div>
+              <div class="post-author-name">CampusOS Events <span class="badge badge-purple" style="font-size:10px">Official</span></div>
+              <div class="post-author-meta">Platform Team</div>
+            </div>
+            <div class="post-time">8:00 AM</div>
+          </div>
+          <div class="post-content">
+            🎉 <strong>TITAN HACKATHON 2024 — Registration NOW OPEN!</strong><br><br>
+            48-hour coding marathon with a massive <strong>₹5 Lakh prize pool</strong>. Build products using the CampusOS API ecosystem. Food, swag, and mentors provided.<br><br>
+            📅 Feb 2–4 • 🏛️ Main Auditorium • Register before Jan 20!
+          </div>
+          <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+            <span class="tag">#hackathon</span>
+            <span class="tag">#coding</span>
+            <span class="tag">#prize</span>
+          </div>
+          <div class="post-actions">
+            <button class="post-action-btn" onclick="this.classList.toggle('liked');this.innerHTML=this.classList.contains('liked')?'❤️ 848':'🤍 847'">🤍 847</button>
+            <button class="post-action-btn">💬 234</button>
+            <button class="post-action-btn">↗️ Share</button>
+            <button class="btn btn-primary" style="margin-left:auto;font-size:12px;padding:6px 16px" onclick="showToast('🎉 Registered for TITAN Hackathon 2024!', 'success')">Register Now</button>
+          </div>
+        </div>
+
+        <!-- Post 2: User Post -->
+        <div class="post-card">
+          <div class="post-header">
+            <div class="post-author-avatar" style="background:linear-gradient(135deg,var(--titan-purple),var(--titan-indigo))">AS</div>
+            <div>
+              <div class="post-author-name">Avrojit Saha</div>
+              <div class="post-author-meta">CS 3rd Year</div>
+            </div>
+            <div class="post-time">9:30 AM</div>
+          </div>
+          <div class="post-content">
+            Just launched my Full-Stack mentoring on SkillSwap! 🚀<br><br>
+            First session <strong>FREE</strong> for TITAN members. We cover:<br>
+            • React 18 + Next.js 14<br>
+            • Node.js + Express + MongoDB<br>
+            • TypeScript + Prisma<br><br>
+            DM or book directly from SkillSwap. Let's build something epic! 💻
+          </div>
+          <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+            <span class="tag">#skillswap</span>
+            <span class="tag">#react</span>
+            <span class="tag">#mentoring</span>
+          </div>
+          <div class="post-actions">
+            <button class="post-action-btn" onclick="this.classList.toggle('liked');this.innerHTML=this.classList.contains('liked')?'❤️ 125':'🤍 124'">🤍 124</button>
+            <button class="post-action-btn">💬 47</button>
+            <button class="post-action-btn">↗️ Share</button>
+            <button class="btn btn-secondary" style="margin-left:auto;font-size:12px;padding:6px 16px" onclick="navigate('skillswap')">View on SkillSwap</button>
+          </div>
+        </div>
+
+        <!-- Event Card -->
+        <div class="titan-card" style="padding:22px;background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(99,102,241,0.06))">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+            <span style="font-size:20px">🎉</span>
+            <span class="badge badge-blue">Upcoming Event</span>
+          </div>
+          <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:white;margin-bottom:8px">TITAN Hackathon 2024</div>
+          <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:16px">48-hour hackathon • ₹5L prize pool • Feb 2–4 • Main Auditorium</div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div style="font-family:var(--font-mono);font-size:16px;font-weight:700;color:var(--titan-cyan)">847 / 1000</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.4)">registered</div>
+            </div>
+            <div class="progress-bar" style="flex:1;margin:0 16px">
+              <div class="progress-fill" style="width:84.7%"></div>
+            </div>
+            <button class="btn btn-primary" onclick="showToast('🎉 Registered for TITAN Hackathon!', 'success')">Register</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================= WALLET ========================= -->
+    <div class="page" id="page-wallet">
+      <div style="margin-bottom:24px">
+        <div class="page-title">💰 TITAN Wallet</div>
+        <div class="page-subtitle">Campus Coins + Rupee Wallet + Escrow system</div>
+      </div>
+
+      <!-- Wallet Hero -->
+      <div class="wallet-hero">
+        <div class="wallet-balance-label">Total Balance</div>
+        <div class="wallet-balance">₹8,500</div>
+        <div class="wallet-coins">🪙 4,250 Campus Coins ≈ ₹425</div>
+        <div style="display:flex;justify-content:center;gap:12px;margin-top:20px">
+          <button class="btn btn-primary" onclick="showToast('Adding money... UPI/Card integration active', 'info')">+ Add Money</button>
+          <button class="btn btn-secondary" onclick="showToast('Transfer initiated via UPI', 'success')">↗️ Transfer</button>
+          <button class="btn btn-secondary" onclick="showToast('Coin swap: 100 coins = ₹10 INR', 'info')">🪙 Swap Coins</button>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Transactions -->
+        <div>
+          <div class="section-title" style="margin-bottom:16px">📋 Recent Transactions</div>
+          <div class="titan-card" style="padding:20px">
+            <div class="txn-item">
+              <div class="txn-icon" style="background:rgba(16,185,129,0.12)">💸</div>
+              <div class="txn-desc">
+                <div class="txn-title">SkillSwap payment received</div>
+                <div class="txn-meta">from Rohan M. • Today 2:30 PM</div>
+              </div>
+              <div class="txn-amount credit">+₹250</div>
+            </div>
+            <div class="txn-item">
+              <div class="txn-icon" style="background:rgba(244,63,94,0.12)">🍛</div>
+              <div class="txn-desc">
+                <div class="txn-title">Chicken Biryani — Canteen</div>
+                <div class="txn-meta">Today 12:45 PM • Food</div>
+              </div>
+              <div class="txn-amount debit">-₹120</div>
+            </div>
+            <div class="txn-item">
+              <div class="txn-icon" style="background:rgba(245,158,11,0.12)">🪙</div>
+              <div class="txn-desc">
+                <div class="txn-title">Daily login bonus</div>
+                <div class="txn-meta">Today 8:00 AM • Rewards</div>
+              </div>
+              <div class="txn-amount" style="color:var(--titan-amber)">+🪙50</div>
+            </div>
+            <div class="txn-item">
+              <div class="txn-icon" style="background:rgba(59,130,246,0.12)">🚚</div>
+              <div class="txn-desc">
+                <div class="txn-title">Delivery fee — Canteen Order</div>
+                <div class="txn-meta">Yesterday 1:15 PM • Logistics</div>
+              </div>
+              <div class="txn-amount debit">-₹25</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Escrow & Coins -->
+        <div>
+          <div class="section-title" style="margin-bottom:16px">🔒 Active Escrow</div>
+          <div class="titan-card" style="padding:20px;background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(99,102,241,0.06));margin-bottom:16px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+              <div style="font-size:28px">💻</div>
+              <div>
+                <div style="font-weight:600;font-size:14px;color:white">MacBook Pro M2</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.4)">Selling to Dev Patel</div>
+              </div>
+              <span class="badge badge-amber" style="margin-left:auto">Held</span>
+            </div>
+            <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:white;margin-bottom:8px">₹95,000</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:12px">Held in secure escrow. Released on delivery confirmation.</div>
+            <div style="font-size:12px;color:var(--titan-cyan);font-family:var(--font-mono)">Protected • No risk • Instant release</div>
+          </div>
+
+          <!-- Coin Economy -->
+          <div class="section-title" style="margin-bottom:16px">🪙 Coin Economy</div>
+          <div class="titan-card" style="padding:20px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+              <div style="font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--titan-amber)">🪙 4,250</div>
+              <span class="badge badge-amber">TITAN Member</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;justify-content:space-between;font-size:13px">
+                <span style="color:rgba(255,255,255,0.5)">Exchange Rate</span>
+                <span style="font-family:var(--font-mono);color:white">100 🪙 = ₹10</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:13px">
+                <span style="color:rgba(255,255,255,0.5)">Equivalent Value</span>
+                <span style="font-family:var(--font-mono);color:var(--titan-amber)">≈ ₹425</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:13px">
+                <span style="color:rgba(255,255,255,0.5)">Earned this month</span>
+                <span style="font-family:var(--font-mono);color:var(--titan-emerald)">+🪙840</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================= ADMIN ========================= -->
+    <div class="page" id="page-admin">
+      <div style="margin-bottom:24px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+          <div class="page-title">⚡ Admin Command Center</div>
+          <span class="badge badge-rose">RESTRICTED</span>
+        </div>
+        <div class="page-subtitle">Real-time platform intelligence. Investor-grade analytics.</div>
+      </div>
+
+      <!-- Admin Hero -->
+      <div class="admin-hero">
+        <div>
+          <div style="font-size:14px;color:rgba(255,255,255,0.4);font-family:var(--font-mono);margin-bottom:4px">Platform Valuation</div>
+          <div style="font-family:var(--font-display);font-size:40px;font-weight:900;color:white">$4.2M</div>
+          <div style="font-size:14px;color:var(--titan-emerald)">Seed Round Ready ↑ 280% YoY</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+          <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.04);border-radius:14px">
+            <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--titan-cyan)">₹7.48L</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4)">Monthly Revenue</div>
+          </div>
+          <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.04);border-radius:14px">
+            <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--titan-emerald)">12,847</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4)">Active Users</div>
+          </div>
+          <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.04);border-radius:14px">
+            <div style="font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--titan-amber)">₹284</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4)">Avg Order Value</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Revenue Chart -->
+        <div class="titan-card" style="padding:22px">
+          <div class="section-title" style="margin-bottom:16px">📈 Monthly Revenue Growth</div>
+          <div class="chart-container" id="revenueChart">
+            <!-- Populated by JS -->
+          </div>
+          <div style="display:flex;justify-content:space-around;margin-top:8px">
+            <div style="text-align:center">
+              <div style="font-family:var(--font-mono);font-size:13px;color:rgba(255,255,255,0.3)">Aug</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module Revenue -->
+        <div class="titan-card" style="padding:22px">
+          <div class="section-title" style="margin-bottom:16px">💰 Revenue by Module</div>
+          <div id="moduleRevenue">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Investor Metrics -->
+      <div style="margin-top:20px">
+        <div class="section-title" style="margin-bottom:16px">📊 Investor Metrics</div>
+        <div class="stats-grid">
+          <div class="stat-card" style="--stat-color:linear-gradient(90deg,var(--titan-emerald),#059669)">
+            <span class="stat-icon">📈</span>
+            <div class="stat-number">19.8%</div>
+            <div class="stat-name">MoM Revenue Growth</div>
+            <div class="stat-change up">Consistent 6 months</div>
+          </div>
+          <div class="stat-card" style="--stat-color:linear-gradient(90deg,var(--titan-cyan),var(--titan-blue))">
+            <span class="stat-icon">🔄</span>
+            <div class="stat-number">84.2%</div>
+            <div class="stat-name">30-Day Retention</div>
+            <div class="stat-change up">↑ Above industry avg</div>
+          </div>
+          <div class="stat-card" style="--stat-color:linear-gradient(90deg,var(--titan-purple),var(--titan-indigo))">
+            <span class="stat-icon">⚡</span>
+            <div class="stat-number">₹42</div>
+            <div class="stat-name">Customer Acq. Cost</div>
+            <div class="stat-change up">↓ Down 28% vs Q3</div>
+          </div>
+          <div class="stat-card" style="--stat-color:linear-gradient(90deg,var(--titan-amber),#e07b00)">
+            <span class="stat-icon">💹</span>
+            <div class="stat-number">7.2x</div>
+            <div class="stat-name">LTV / CAC Ratio</div>
+            <div class="stat-change up">Exceptional unit economics</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ========================= JSON DATA =========================
+const db = {
+  marketplace: {
+    listings: [
+      { id: 'mkt_001', emoji: '💻', title: 'MacBook Pro M2 (2023) — Like New', price: 95000, coins: 9500, category: 'Electronics', condition: 'Like New', seller: 'Rahul V.', sellerRating: 4.9, tags: ['laptop','apple','m2'], views: 284, escrow: true, verified: true },
+      { id: 'mkt_002', emoji: '📷', title: 'DSLR Canon EOS 90D Bundle', price: 45000, coins: 4500, category: 'Electronics', condition: 'Good', seller: 'Ananya B.', sellerRating: 4.8, tags: ['camera','photography'], views: 192, escrow: true, verified: false },
+      { id: 'mkt_003', emoji: '📚', title: 'Engineering Mathematics Vol 1–4', price: 800, coins: 80, category: 'Books', condition: 'Good', seller: 'Vikram D.', sellerRating: 4.7, tags: ['textbook','math'], views: 84, escrow: false },
+      { id: 'mkt_004', emoji: '🪑', title: 'Herman Miller Aeron Chair', price: 28000, coins: 2800, category: 'Furniture', condition: 'Excellent', seller: 'Alumni Network', sellerRating: 5.0, tags: ['chair','premium'], views: 423, escrow: true, verified: true },
+      { id: 'mkt_005', emoji: '🎸', title: 'Yamaha F310 Acoustic Guitar', price: 6500, coins: 650, category: 'Instruments', condition: 'Good', seller: 'Rohan M.', sellerRating: 4.8, tags: ['guitar','music'], views: 127, escrow: false },
+      { id: 'mkt_006', emoji: '⌚', title: 'Apple Watch Series 8', price: 22000, coins: 2200, category: 'Electronics', condition: 'Like New', seller: 'Priya S.', sellerRating: 4.9, tags: ['watch','apple'], views: 341, escrow: true, verified: true }
+    ]
+  },
+  skills: [
+    { id: 'sk_001', emoji: '💻', title: 'Full-Stack Dev Mentoring', provider: 'Avrojit Saha', rating: 4.95, category: 'Programming', tags: ['React','Node.js','MongoDB'], price: 250, coins: 50, barter: true, sessions: 47, students: 23 },
+    { id: 'sk_002', emoji: '🎨', title: 'Figma + UI/UX Design', provider: 'Aisha Khan', rating: 4.8, category: 'Design', tags: ['Figma','UX Research'], price: 200, coins: 40, barter: true, sessions: 31, students: 18 },
+    { id: 'sk_003', emoji: '🎸', title: 'Classical Guitar Lessons', provider: 'Rohan Menon', rating: 4.9, category: 'Music', tags: ['Guitar','Music Theory'], price: 150, coins: 30, barter: true, sessions: 24, students: 12 },
+    { id: 'sk_004', emoji: '🧮', title: 'Advanced Math Tutoring', provider: 'Dr. Preethi N.', rating: 4.95, category: 'Academics', tags: ['Calculus','Linear Algebra'], price: 300, coins: 60, barter: false, sessions: 89, students: 47 },
+    { id: 'sk_005', emoji: '🏋️', title: 'Fitness & Training Coach', provider: 'Vikas Sharma', rating: 4.7, category: 'Fitness', tags: ['Strength','Cardio'], price: 120, coins: 24, barter: true, sessions: 62, students: 31 },
+    { id: 'sk_006', emoji: '🌐', title: 'French Language (A1–B2)', provider: 'Marie Lefebvre', rating: 4.85, category: 'Languages', tags: ['French','DELF','Conversation'], price: 180, coins: 36, barter: false, sessions: 19, students: 9 }
+  ],
+  adminRevenue: [
+    { month: 'Aug', revenue: 284000, users: 4200 },
+    { month: 'Sep', revenue: 342000, users: 5800 },
+    { month: 'Oct', revenue: 428000, users: 7200 },
+    { month: 'Nov', revenue: 512000, users: 9100 },
+    { month: 'Dec', revenue: 624000, users: 10800 },
+    { month: 'Jan', revenue: 748000, users: 12847 }
+  ],
+  moduleRevenue: [
+    { module: 'Marketplace', revenue: 284000, share: 38, color: 'var(--titan-cyan)' },
+    { module: 'SkillSwap', revenue: 198000, share: 26, color: 'var(--titan-emerald)' },
+    { module: 'Logistics', revenue: 142000, share: 19, color: 'var(--titan-amber)' },
+    { module: 'Food', revenue: 89000, share: 12, color: 'var(--titan-rose)' },
+    { module: 'Hostel', revenue: 37000, share: 5, color: 'var(--titan-indigo)' }
+  ]
+};
+
+// ========================= NAVIGATION =========================
+function navigate(page) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  
+  // Show target page
+  const target = document.getElementById('page-' + page);
+  const navItem = document.getElementById('nav-' + page);
+  if (target) target.classList.add('active');
+  if (navItem) navItem.classList.add('active');
+  
+  // Scroll to top
+  document.querySelector('.main-content').scrollTop = 0;
+  
+  // Page-specific init
+  if (page === 'marketplace') renderListings();
+  if (page === 'skillswap') renderSkills();
+  if (page === 'admin') renderAdminCharts();
+}
+
+// ========================= MARKETPLACE =========================
+function renderListings(filter = 'all') {
+  const grid = document.getElementById('listingsGrid');
+  const items = filter === 'all' ? db.marketplace.listings : db.marketplace.listings.filter(l => l.category === filter);
+  
+  grid.innerHTML = items.map(item => `
+    <div class="listing-card" onclick="showItemModal('${item.id}')">
+      <div class="listing-image">
+        <span style="filter:drop-shadow(0 0 20px rgba(139,92,246,0.4))">${item.emoji}</span>
+        ${item.verified ? '<span class="badge badge-emerald" style="position:absolute;top:12px;right:12px;font-size:10px">✓ Verified</span>' : ''}
+        ${item.escrow ? '<span class="badge badge-cyan" style="position:absolute;top:12px;left:12px;font-size:10px">🔒 Escrow</span>' : ''}
+      </div>
+      <div class="listing-body">
+        <div class="listing-title">${item.title}</div>
+        <div class="listing-price">₹${item.price.toLocaleString()}</div>
+        <div class="listing-coins">🪙 ${item.coins} coins accepted</div>
+        <div class="listing-seller">
+          <div class="seller-avatar">${item.seller.charAt(0)}</div>
+          <span style="font-size:12px;color:rgba(255,255,255,0.5)">${item.seller}</span>
+          <span style="margin-left:auto" class="stars" style="font-size:11px">⭐${item.sellerRating}</span>
+        </div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px">
+          ${item.tags.map(t => `<span class="tag">#${t}</span>`).join('')}
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:11px;color:rgba(255,255,255,0.35)">👁️ ${item.views} views</span>
+          <button class="btn btn-primary" style="font-size:12px;padding:6px 14px" onclick="event.stopPropagation();showToast('💬 Contacting ${item.seller}...', 'success')">Contact</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterListings(cat) {
+  renderListings(cat);
+}
+
+function showItemModal(id) {
+  const item = db.marketplace.listings.find(l => l.id === id);
+  if (!item) return;
+  document.getElementById('modalBody').innerHTML = `
+    <div style="text-align:center;font-size:72px;margin-bottom:16px">${item.emoji}</div>
+    <div class="modal-title">${item.title}</div>
+    <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:20px">${item.category} • ${item.condition} condition</div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:16px">
+      <div>
+        <div style="font-family:var(--font-display);font-size:32px;font-weight:900;color:white">₹${item.price.toLocaleString()}</div>
+        <div style="font-size:13px;color:var(--titan-amber)">🪙 ${item.coins} Campus Coins</div>
+      </div>
+      <div style="text-align:right">
+        ${item.escrow ? '<span class="badge badge-cyan">🔒 Escrow Protected</span>' : ''}
+        ${item.verified ? '<br><span class="badge badge-emerald" style="margin-top:6px">✓ Verified Seller</span>' : ''}
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:12px">
+      <button class="btn btn-primary" style="flex:1" onclick="showToast('💬 Chat opened with ${item.seller}!', 'success');closeModal()">💬 Message Seller</button>
+      <button class="btn btn-emerald" style="flex:1" onclick="showToast('🔒 Escrow payment of ₹${item.price.toLocaleString()} initiated!', 'success');closeModal()">💳 Buy Now</button>
+    </div>
+    <button class="btn btn-ghost" style="width:100%" onclick="document.getElementById('modalOverlay').classList.remove('active')">Cancel</button>
+  `;
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+// ========================= SKILLS =========================
+function renderSkills() {
+  const grid = document.getElementById('skillsGrid');
+  grid.innerHTML = db.skills.map(skill => `
+    <div class="skill-card">
+      <div style="font-size:44px;margin-bottom:14px">${skill.emoji}</div>
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:white;margin-bottom:6px">${skill.title}</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:12px">by ${skill.provider}</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px">
+        ${skill.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:12px">
+        <div>
+          <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:white">₹${skill.price}<span style="font-size:12px;color:rgba(255,255,255,0.4)">/hr</span></div>
+          <div style="font-size:11px;color:var(--titan-amber)">🪙${skill.coins} coins/hr</div>
+        </div>
+        <div style="text-align:right">
+          <div class="stars">⭐${skill.rating}</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px">${skill.sessions} sessions • ${skill.students} students</div>
+        </div>
+      </div>
+      ${skill.barter ? '<div style="font-size:12px;color:var(--titan-emerald);margin-bottom:12px">🔄 Barter exchange available</div>' : ''}
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-primary" style="flex:1;font-size:12px;padding:7px" onclick="showToast('📅 Booking session with ${skill.provider}...', 'success')">Book Session</button>
+        <button class="btn btn-secondary" style="font-size:12px;padding:7px 12px" onclick="showToast('💬 Chat opened!', 'info')">💬</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ========================= ADMIN CHARTS =========================
+function renderAdminCharts() {
+  const chart = document.getElementById('revenueChart');
+  const maxRevenue = Math.max(...db.adminRevenue.map(d => d.revenue));
+  
+  chart.innerHTML = db.adminRevenue.map((d, i) => {
+    const height = Math.round((d.revenue / maxRevenue) * 150);
+    const hue = 220 + i * 15;
+    return `
+      <div class="chart-bar-group">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--titan-emerald);text-align:center;margin-bottom:4px">₹${(d.revenue/1000).toFixed(0)}K</div>
+        <div class="chart-bar" style="height:${height}px;background:linear-gradient(180deg,rgba(139,92,246,0.8),rgba(6,182,212,0.4));min-height:8px" title="${d.month}: ₹${d.revenue.toLocaleString()}"></div>
+        <div class="chart-bar-label">${d.month}</div>
+      </div>
+    `;
+  }).join('');
+
+  const moduleRev = document.getElementById('moduleRevenue');
+  moduleRev.innerHTML = db.moduleRevenue.map(m => `
+    <div style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+        <span style="font-size:13px;color:rgba(255,255,255,0.8)">${m.module}</span>
+        <span style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:${m.color}">₹${(m.revenue/1000).toFixed(0)}K • ${m.share}%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width:${m.share*2.5}%;background:${m.color}"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ========================= GREETINGS =========================
+function updateGreeting() {
+  const hour = new Date().getHours();
+  const greetEl = document.getElementById('heroGreeting');
+  const subEl = document.getElementById('heroTagline');
+  const iconEl = document.getElementById('timeIcon');
+  
+  if (hour >= 5 && hour < 12) {
+    greetEl.textContent = 'Good Morning, Titan ☀️';
+    subEl.textContent = 'Start your academic empire. Classes, deliveries, and deals await.';
+    iconEl.textContent = '🌅';
+  } else if (hour >= 12 && hour < 17) {
+    greetEl.textContent = 'Good Afternoon, Titan ☕';
+    subEl.textContent = 'Mid-day check-in. Order lunch, track deliveries, swap skills.';
+    iconEl.textContent = '☀️';
+  } else if (hour >= 17 && hour < 21) {
+    greetEl.textContent = 'Good Evening, Titan 🌆';
+    subEl.textContent = 'Wind down or sync up. See what the campus community is up to.';
+    iconEl.textContent = '🌆';
+  } else {
+    greetEl.textContent = 'Good Night, Titan 🌙';
+    subEl.textContent = 'Night owl mode. Marketplace never sleeps.';
+    iconEl.textContent = '🌙';
+  }
+}
+
+// ========================= MODALS =========================
+function closeModal(event) {
+  if (!event || event.target === document.getElementById('modalOverlay')) {
+    document.getElementById('modalOverlay').classList.remove('active');
+  }
+}
+
+function showListItemModal() {
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-title">📦 List an Item</div>
+    <div style="color:rgba(255,255,255,0.5);font-size:14px;margin-bottom:20px">List anything for sale on campus marketplace. Escrow protection available.</div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <input placeholder="Item title" style="background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:white;font-family:var(--font-sans);font-size:14px;outline:none;" />
+      <input placeholder="Price (₹)" type="number" style="background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:white;font-family:var(--font-sans);font-size:14px;outline:none;" />
+      <select style="background:rgba(14,19,32,0.98);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:rgba(255,255,255,0.7);font-family:var(--font-sans);font-size:14px;outline:none;">
+        <option>Electronics</option><option>Books</option><option>Furniture</option><option>Clothing</option><option>Sports</option><option>Instruments</option><option>Others</option>
+      </select>
+      <button class="btn btn-primary" style="width:100%" onclick="showToast('✅ Item listed successfully! Now live in Marketplace.', 'success');document.getElementById('modalOverlay').classList.remove('active')">List Item</button>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function showMaintenanceModal() {
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-title">🔧 Raise Maintenance Issue</div>
+    <div style="color:rgba(255,255,255,0.5);font-size:14px;margin-bottom:20px">Report any hostel maintenance issue. We respond within 24 hours.</div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <input placeholder="Issue title (e.g., AC not working)" style="background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:white;font-family:var(--font-sans);font-size:14px;outline:none;" />
+      <textarea placeholder="Describe the issue in detail..." style="background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:white;font-family:var(--font-sans);font-size:14px;outline:none;min-height:100px;resize:vertical"></textarea>
+      <select style="background:rgba(14,19,32,0.98);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:rgba(255,255,255,0.7);font-family:var(--font-sans);font-size:14px;outline:none;">
+        <option>High Priority</option><option>Medium Priority</option><option>Low Priority</option>
+      </select>
+      <button class="btn btn-primary" style="width:100%" onclick="showToast('🔧 Ticket raised! Maintenance team notified. ETA: Within 24hrs', 'success');document.getElementById('modalOverlay').classList.remove('active')">Submit Ticket</button>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function showNotificationModal() {
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-title">🔔 Notifications</div>
+    <div style="display:flex;flex-direction:column;gap:0">
+      <div style="padding:14px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start">
+        <span style="font-size:24px">⚡</span>
+        <div>
+          <div style="font-size:13.5px;font-weight:600;color:white;margin-bottom:4px">TITAN Hackathon Registration Open</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4)">₹5L prize pool • Register before Jan 20 • 2 min ago</div>
+        </div>
+        <span class="badge badge-rose" style="flex-shrink:0">NEW</span>
+      </div>
+      <div style="padding:14px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start">
+        <span style="font-size:24px">📦</span>
+        <div>
+          <div style="font-size:13.5px;font-weight:600;color:white;margin-bottom:4px">Your delivery is 8 minutes away</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4)">Karan M. is on the way • Order ORD_8842 • 5 min ago</div>
+        </div>
+      </div>
+      <div style="padding:14px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start">
+        <span style="font-size:24px">🪙</span>
+        <div>
+          <div style="font-size:13.5px;font-weight:600;color:white;margin-bottom:4px">Daily bonus credited: +50 Campus Coins</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4)">Login streak: 7 days • This morning</div>
+        </div>
+      </div>
+      <div style="padding:14px 0;display:flex;gap:12px;align-items:flex-start">
+        <span style="font-size:24px">🔒</span>
+        <div>
+          <div style="font-size:13.5px;font-weight:600;color:white;margin-bottom:4px">Escrow holds ₹95,000 for MacBook sale</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.4)">Waiting for delivery confirmation • Yesterday</div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+// ========================= SEARCH =========================
+function handleSearch(query) {
+  if (query.length > 2) {
+    const results = db.marketplace.listings.filter(l =>
+      l.title.toLowerCase().includes(query.toLowerCase()) ||
+      l.tags.some(t => t.toLowerCase().includes(query.toLowerCase()))
+    );
+    if (results.length > 0 && query) {
+      showToast(`🔍 Found ${results.length} results for "${query}" in Marketplace`, 'info');
+    }
+  }
+}
+
+// ========================= TOAST =========================
+function showToast(message, type = 'info') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  const icons = { success: '✅', info: 'ℹ️', warning: '⚠️' };
+  toast.innerHTML = `<span style="font-size:18px">${icons[type] || 'ℹ️'}</span><span>${message}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.animation = 'slideIn 0.3s ease reverse';
+    setTimeout(() => container.removeChild(toast), 300);
+  }, 4000);
+}
+
+// ========================= PARTICLES =========================
+function initParticles() {
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  
+  const particles = Array.from({ length: 60 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.5 + 0.5,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    opacity: Math.random() * 0.4 + 0.1,
+    color: ['139,92,246', '6,182,212', '99,102,241', '16,185,129'][Math.floor(Math.random() * 4)]
+  }));
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.color},${p.opacity})`;
+      ctx.fill();
+    });
+    // Draw connections
+    particles.forEach((p1, i) => {
+      particles.slice(i + 1).forEach(p2 => {
+        const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = `rgba(139,92,246,${0.08 * (1 - dist/120)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      });
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+  
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+}
+
+// ========================= LIVE COUNTERS =========================
+function initLiveCounters() {
+  let users = 1243;
+  let orders = 234;
+  
+  setInterval(() => {
+    users += Math.floor(Math.random() * 5) - 2;
+    orders += Math.floor(Math.random() * 3) - 1;
+    const el = document.getElementById('onlineCount');
+    const ordEl = document.getElementById('activeOrders');
+    if (el) el.textContent = users.toLocaleString();
+    if (ordEl) ordEl.textContent = orders;
+  }, 3000);
+}
+
+// ========================= INIT =========================
+document.addEventListener('DOMContentLoaded', () => {
+  initParticles();
+  updateGreeting();
+  initLiveCounters();
+  renderListings();
+  setInterval(updateGreeting, 60000);
+  
+  // Welcome toast
+  setTimeout(() => showToast('🚀 Welcome to CampusOS TITAN X! Your campus digital empire awaits.', 'success'), 1000);
+  setTimeout(() => showToast('⚡ TITAN Hackathon 2024 — ₹5L prize! Register before Jan 20', 'info'), 3000);
+  
+  console.log('%c⚡ CampusOS TITAN X v2.0.0', 'font-size:20px;font-weight:bold;color:#8B5CF6;background:#050508;padding:10px 20px;border-radius:8px');
+  console.log('%cBuilt for investors. Designed for Titans.', 'color:#06B6D4;font-size:14px');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,282 @@
+version: '3.9'
+
+services:
+  # ─── Databases ────────────────────────────────────────────────────────────────
+  mongodb:
+    image: mongo:7.0
+    container_name: campusos_mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: campusos
+      MONGO_INITDB_ROOT_PASSWORD: campusos_secret
+      MONGO_INITDB_DATABASE: campusos
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - campusos_net
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: campusos_postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: campusos
+      POSTGRES_PASSWORD: campusos_secret
+      POSTGRES_DB: campusos_payments
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - campusos_net
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: campusos_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass campusos_secret
+    volumes:
+      - redis_data:/data
+    networks:
+      - campusos_net
+
+  # ─── Backend Services ─────────────────────────────────────────────────────────
+  auth-service:
+    build:
+      context: ./services/auth-service
+      dockerfile: ../../infra/docker/Dockerfile.node
+    container_name: campusos_auth
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - MONGO_URI=mongodb://campusos:campusos_secret@mongodb:27017/campusos?authSource=admin
+      - REDIS_URL=redis://:campusos_secret@redis:6379
+      - JWT_SECRET=your_jwt_secret_here_change_in_prod
+      - JWT_REFRESH_SECRET=your_refresh_secret_here
+      - NODE_ENV=development
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - campusos_net
+
+  user-service:
+    build:
+      context: ./services/user-service
+      dockerfile: ../../infra/docker/Dockerfile.node
+    container_name: campusos_user
+    restart: unless-stopped
+    ports:
+      - "3008:3008"
+    environment:
+      - PORT=3008
+      - MONGO_URI=mongodb://campusos:campusos_secret@mongodb:27017/campusos?authSource=admin
+      - REDIS_URL=redis://:campusos_secret@redis:6379
+      - AUTH_SERVICE_URL=http://auth-service:3001
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - campusos_net
+
+  marketplace-service:
+    build:
+      context: ./services/marketplace-service
+      dockerfile: ../../infra/docker/Dockerfile.node
+    container_name: campusos_marketplace
+    restart: unless-stopped
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - MONGO_URI=mongodb://campusos:campusos_secret@mongodb:27017/campusos?authSource=admin
+      - REDIS_URL=redis://:campusos_secret@redis:6379
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - PAYMENT_SERVICE_URL=http://payment-service:3004
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - campusos_net
+
+  logistics-service:
+    build:
+      context: ./services/logistics-service
+      dockerfile: ../../infra/docker/Dockerfile.node
+    container_name: campusos_logistics
+    restart: unless-stopped
+    ports:
+      - "3003:3003"
+    environment:
+      - PORT=3003
+      - MONGO_URI=mongodb://campusos:campusos_secret@mongodb:27017/campusos?authSource=admin
+      - REDIS_URL=redis://:campusos_secret@redis:6379
+      - AUTH_SERVICE_URL=http://auth-service:3001
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - campusos_net
+
+  payment-service:
+    build:
+      context: ./services/payment-service
+      dockerfile: ../../infra/docker/Dockerfile.node
+    container_name: campusos_payment
+    restart: unless-stopped
+    ports:
+      - "3004:3004"
+    environment:
+      - PORT=3004
+      - DATABASE_URL=postgresql://campusos:campusos_secret@postgres:5432/campusos_payments
+      - REDIS_URL=redis://:campusos_secret@redis:6379
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - RAZORPAY_KEY_ID=your_razorpay_key_id
+      - RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - campusos_net
+
+  hostel-service:
+    build:
+      context: ./services/hostel-service
+      dockerfile: ../../infra/docker/Dockerfile.node
+    container_name: campusos_hostel
+    restart: unless-stopped
+    ports:
+      - "3005:3005"
+    environment:
+      - PORT=3005
+      - MONGO_URI=mongodb://campusos:campusos_secret@mongodb:27017/campusos?authSource=admin
+      - REDIS_URL=redis://:campusos_secret@redis:6379
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - AI_ENGINE_URL=http://ai-engine:8000
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - campusos_net
+
+  food-service:
+    build:
+      context: ./services/food-service
+      dockerfile: ../../infra/docker/Dockerfile.node
+    container_name: campusos_food
+    restart: unless-stopped
+    ports:
+      - "3006:3006"
+    environment:
+      - PORT=3006
+      - MONGO_URI=mongodb://campusos:campusos_secret@mongodb:27017/campusos?authSource=admin
+      - REDIS_URL=redis://:campusos_secret@redis:6379
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - AI_ENGINE_URL=http://ai-engine:8000
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - campusos_net
+
+  skillswap-service:
+    build:
+      context: ./services/skillswap-service
+      dockerfile: ../../infra/docker/Dockerfile.node
+    container_name: campusos_skillswap
+    restart: unless-stopped
+    ports:
+      - "3007:3007"
+    environment:
+      - PORT=3007
+      - MONGO_URI=mongodb://campusos:campusos_secret@mongodb:27017/campusos?authSource=admin
+      - REDIS_URL=redis://:campusos_secret@redis:6379
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - AI_ENGINE_URL=http://ai-engine:8000
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - campusos_net
+
+  ai-engine:
+    build:
+      context: ./services/ai-engine
+      dockerfile: ../../infra/docker/Dockerfile.python
+    container_name: campusos_ai
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGO_URI=mongodb://campusos:campusos_secret@mongodb:27017/campusos?authSource=admin
+      - REDIS_URL=redis://:campusos_secret@redis:6379
+      - OPENAI_API_KEY=optional_for_advanced_features
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - campusos_net
+
+  # ─── Frontend Apps ────────────────────────────────────────────────────────────
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: ../../infra/docker/Dockerfile.next
+    container_name: campusos_web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://nginx:80/api
+      - NEXT_PUBLIC_WS_URL=ws://nginx:80
+    depends_on:
+      - auth-service
+    networks:
+      - campusos_net
+
+  admin:
+    build:
+      context: ./apps/admin
+      dockerfile: ../../infra/docker/Dockerfile.next
+    container_name: campusos_admin
+    restart: unless-stopped
+    ports:
+      - "3100:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://nginx:80/api
+    depends_on:
+      - auth-service
+    networks:
+      - campusos_net
+
+  # ─── Reverse Proxy ────────────────────────────────────────────────────────────
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: campusos_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - web
+      - admin
+      - auth-service
+    networks:
+      - campusos_net
+
+volumes:
+  mongodb_data:
+  postgres_data:
+  redis_data:
+
+networks:
+  campusos_net:
+    driver: bridge

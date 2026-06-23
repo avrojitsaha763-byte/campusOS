@@ -1,0 +1,44 @@
+
+> web@1.0.0 build C:\Users\AVROJIT\OneDrive\Desktop\fullstack internship task\campusOS\apps\web
+> next build
+
+   ▲ Next.js 14.1.3
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/basic-features/eslint#migrating-existing-config
+   Collecting page data ...
+   Generating static pages (0/15) ...
+   Generating static pages (3/15) 
+   Generating static pages (7/15) 
+   Generating static pages (11/15) 
+ ✓ Generating static pages (15/15) 
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    6 kB            146 kB
+├ ○ /_not-found                          884 B          85.2 kB
+├ λ /[...slug]                           138 B          84.5 kB
+├ ○ /explore                             4.77 kB         142 kB
+├ ○ /food                                5.81 kB         140 kB
+├ ○ /home                                4.24 kB         138 kB
+├ ○ /hostel                              6.27 kB         137 kB
+├ ○ /login                               4.04 kB         137 kB
+├ ○ /logistics                           19.8 kB         150 kB
+├ ○ /marketplace                         5.77 kB         136 kB
+├ ○ /skillswap                           6.16 kB         139 kB
+├ ○ /social                              4.44 kB         137 kB
+├ ○ /titan-league                        6.36 kB         137 kB
+└ ○ /wallet                              11.9 kB         143 kB
++ First Load JS shared by all            84.3 kB
+  ├ chunks/331-56965ed98f542df3.js       29 kB
+  ├ chunks/679c2e16-0eafcb56966f08d3.js  53.4 kB
+  └ other shared chunks (total)          1.96 kB
+
+
+○  (Static)   prerendered as static content
+λ  (Dynamic)  server-rendered on demand using Node.js
+

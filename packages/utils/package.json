@@ -1,0 +1,12 @@
+{
+  "name": "@campusos/utils",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "dependencies": {
+    "axios": "^1.6.7"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

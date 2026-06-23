@@ -1,0 +1,16 @@
+{
+  "/_not-found": "app/_not-found.js",
+  "/explore/page": "app/explore/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/(dashboard)/home/page": "app/(dashboard)/home/page.js",
+  "/(dashboard)/[...slug]/page": "app/(dashboard)/[...slug]/page.js",
+  "/(dashboard)/marketplace/page": "app/(dashboard)/marketplace/page.js",
+  "/(dashboard)/food/page": "app/(dashboard)/food/page.js",
+  "/(dashboard)/hostel/page": "app/(dashboard)/hostel/page.js",
+  "/(dashboard)/logistics/page": "app/(dashboard)/logistics/page.js",
+  "/(dashboard)/social/page": "app/(dashboard)/social/page.js",
+  "/(dashboard)/titan-league/page": "app/(dashboard)/titan-league/page.js",
+  "/(dashboard)/skillswap/page": "app/(dashboard)/skillswap/page.js",
+  "/(dashboard)/wallet/page": "app/(dashboard)/wallet/page.js"
+}

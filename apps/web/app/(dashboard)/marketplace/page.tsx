@@ -73,7 +73,14 @@ export default function MarketplacePage() {
               className="bg-transparent border-none text-sm focus:outline-none text-white font-medium w-32"
             />
           </div>
-          <GlowButton className="gap-2 px-6"><Plus className="w-4 h-4" /> Start Selling</GlowButton>
+          <GlowButton 
+             onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+               detail: { message: 'Minting Sell Order form... Initializing asset metadata sync.', type: 'info' } 
+             }))}
+             className="gap-2 px-6"
+           >
+             <Plus className="w-4 h-4" /> Start Selling
+           </GlowButton>
         </div>
       </header>
 
@@ -148,7 +155,12 @@ export default function MarketplacePage() {
 
                 {/* Quick Actions */}
                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity translate-y-[-10px] group-hover:translate-y-0 transition-all duration-300">
-                  <button className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-pink-500/20 hover:text-pink-500 transition-all">
+                  <button 
+                    onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                      detail: { message: `Saved ${product.name} to wishlist node!`, type: 'success' } 
+                    }))}
+                    className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-pink-500/20 hover:text-pink-500 transition-all"
+                  >
                     <Heart className="w-4 h-4" />
                   </button>
                 </div>
@@ -176,10 +188,21 @@ export default function MarketplacePage() {
                   </div>
                   
                   <div className="flex gap-2">
-                    <GlowButton variant="secondary" className="px-3 py-2.5 rounded-xl border-white/5">
+                    <GlowButton 
+                      onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                        detail: { message: `Telemetry check: condition is ${product.condition} - high quality verified.`, type: 'info' } 
+                      }))}
+                      variant="secondary" 
+                      className="px-3 py-2.5 rounded-xl border-white/5"
+                    >
                       <Sparkles className="w-4 h-4" />
                     </GlowButton>
-                    <GlowButton className="gap-2 px-5 py-2.5 rounded-xl text-sm group/btn">
+                    <GlowButton 
+                      onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                        detail: { message: `Escrow synchronized for ${product.name}. Transferring ${product.coins} CC.`, type: 'success' } 
+                      }))}
+                      className="gap-2 px-5 py-2.5 rounded-xl text-sm group/btn"
+                    >
                       Exchange <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </GlowButton>
                   </div>
@@ -198,7 +221,14 @@ export default function MarketplacePage() {
           Market analysis complete. High demand detected for **Academic Notes**. 
           Current liquidity allows for 15.3% higher exchange rates for elite sellers.
         </p>
-        <GlowButton className="px-10">Sync Inventory Logic</GlowButton>
+        <GlowButton 
+          onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+            detail: { message: 'Inventory synchronicity complete. Price surges adjusted across all categories.', type: 'success' } 
+          }))}
+          className="px-10"
+        >
+          Sync Inventory Logic
+        </GlowButton>
       </AdaptiveWidget>
     </div>
   );

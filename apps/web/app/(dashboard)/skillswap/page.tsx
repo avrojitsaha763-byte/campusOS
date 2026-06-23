@@ -68,7 +68,12 @@ export default function SkillSwapPage() {
             Trade your knowledge. Every session is an investment in the campus-wide intelligence network.
           </p>
         </div>
-        <GlowButton className="gap-2 px-10 py-5 bg-neon-purple hover:bg-purple-600 rounded-[2rem] text-sm group">
+        <GlowButton 
+          onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+            detail: { message: 'Minting verified Skill Profile NFT on Titan network...', type: 'info' } 
+          }))}
+          className="gap-2 px-10 py-5 bg-neon-purple hover:bg-purple-600 rounded-[2rem] text-sm group"
+        >
            <Brain className="w-5 h-5 group-hover:scale-110 transition-transform" /> Mint Skill Profile
         </GlowButton>
       </header>
@@ -129,7 +134,13 @@ export default function SkillSwapPage() {
 
                <div className="mt-12 flex flex-wrap gap-3">
                   {['High Aura', 'Elite Sector', 'Instant Verification', 'System Lab'].map(tag => (
-                    <button key={tag} className="px-5 py-2 rounded-xl bg-white/[0.03] border border-white/5 text-[10px] font-bold text-gray-600 hover:text-white hover:border-neon-purple/50 transition-all font-space uppercase tracking-[0.1em]">
+                    <button 
+                      key={tag} 
+                      onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                        detail: { message: `Search parameter adjusted: ${tag} enabled.`, type: 'info' } 
+                      }))}
+                      className="px-5 py-2 rounded-xl bg-white/[0.03] border border-white/5 text-[10px] font-bold text-gray-600 hover:text-white hover:border-neon-purple/50 transition-all font-space uppercase tracking-[0.1em]"
+                    >
                       {tag}
                     </button>
                   ))}
@@ -150,7 +161,14 @@ export default function SkillSwapPage() {
                    <p className="text-gray-400 font-medium leading-relaxed mb-6">
                       An 98.4% intellectual match was found for your current sync parameter. **David L.** is currently active in the Systems Lab sector.
                    </p>
-                   <GlowButton className="px-8 py-3 bg-white text-black hover:bg-gray-100 rounded-xl text-xs font-bold uppercase tracking-widest">Connect Channel</GlowButton>
+                    <GlowButton 
+                      onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                        detail: { message: 'Connected to David L. channels. Opening communication relay.', type: 'success' } 
+                      }))}
+                      className="px-8 py-3 bg-white text-black hover:bg-gray-100 rounded-xl text-xs font-bold uppercase tracking-widest"
+                    >
+                      Connect Channel
+                    </GlowButton>
                 </div>
              </div>
           </AdaptiveWidget>
@@ -165,7 +183,15 @@ export default function SkillSwapPage() {
                <h3 className="text-3xl font-bold text-white font-space tracking-tight mb-2 uppercase">Titan Aura Leaderboard</h3>
                <p className="text-gray-500 font-medium">Global Ranking of the most influential intellectuals across all campus sectors.</p>
             </div>
-            <GlowButton variant="secondary" className="px-8 py-4 border-white/10 text-xs font-bold uppercase tracking-[0.2em] font-space">Enter Hall of Fame</GlowButton>
+            <GlowButton 
+              onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                detail: { message: 'Opening Titan Aura Leaderboards and Hall of Fame...', type: 'info' } 
+              }))}
+              variant="secondary" 
+              className="px-8 py-4 border-white/10 text-xs font-bold uppercase tracking-[0.2em] font-space"
+            >
+              Enter Hall of Fame
+            </GlowButton>
          </div>
          
          {/* Perspective Scanlines */}

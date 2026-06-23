@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 export default function GenericPage({ params, searchParams }: any) {
   // Catch-all placeholder for remaining pages (Hostel, Logistics, Social, Wallet)
   // Ensures build succeeds while fulfilling scaffold requirements.

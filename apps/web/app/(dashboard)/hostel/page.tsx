@@ -58,8 +58,22 @@ export default function HostelPage() {
         </div>
         
         <div className="flex bg-white/[0.03] border border-white/5 p-1 rounded-2xl">
-           <button className="px-6 py-2.5 rounded-xl bg-accent text-white text-[10px] font-bold uppercase tracking-widest font-space">Discovery</button>
-           <button className="px-6 py-2.5 rounded-xl text-gray-500 hover:text-white text-[10px] font-bold uppercase tracking-widest font-space transition-colors">Habitat Scan</button>
+           <button 
+             onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+               detail: { message: 'Habitat Discovery Grid active.', type: 'info' } 
+             }))}
+             className="px-6 py-2.5 rounded-xl bg-accent text-white text-[10px] font-bold uppercase tracking-widest font-space"
+           >
+             Discovery
+           </button>
+           <button 
+             onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+               detail: { message: 'Habitat scanning sequence active... Searching for signal nodes.', type: 'info' } 
+             }))}
+             className="px-6 py-2.5 rounded-xl text-gray-500 hover:text-white text-[10px] font-bold uppercase tracking-widest font-space transition-colors"
+           >
+             Habitat Scan
+           </button>
         </div>
       </header>
 
@@ -135,7 +149,15 @@ export default function HostelPage() {
                      <p className="text-[8px] text-gray-700 uppercase font-bold tracking-[0.4em] mb-1 font-space text-gray-500">Node Sync Fee</p>
                      <p className="text-2xl font-bold text-white font-space tracking-tight">₹{pg.price.toLocaleString()}<span className="text-sm text-gray-600 font-normal">/mo</span></p>
                    </div>
-                   <GlowButton variant="secondary" className="px-6 py-2.5 rounded-xl border-white/10 text-[10px] font-bold uppercase tracking-widest">Connect Node</GlowButton>
+                   <GlowButton 
+                      onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                        detail: { message: `Synced with ${pg.name}. Secure smart lease contract initialized.`, type: 'success' } 
+                      }))}
+                      variant="secondary" 
+                      className="px-6 py-2.5 rounded-xl border-white/10 text-[10px] font-bold uppercase tracking-widest"
+                    >
+                      Connect Node
+                    </GlowButton>
                 </div>
              </div>
           </TitanCard>
@@ -156,7 +178,14 @@ export default function HostelPage() {
                  </p>
                </div>
             </div>
-            <GlowButton className="bg-primary hover:bg-primary-hover px-12 py-5 rounded-[2rem] font-bold text-white text-base shadow-[0_0_30px_rgba(14,165,233,0.5)] transform group-hover:scale-105 transition-all">Submit Ticket.IO</GlowButton>
+             <GlowButton 
+               onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                 detail: { message: 'Maintenance Ticket generated successfully. Dispatched to local sector engineer.', type: 'success' } 
+               }))}
+               className="bg-primary hover:bg-primary-hover px-12 py-5 rounded-[2rem] font-bold text-white text-base shadow-[0_0_30px_rgba(14,165,233,0.5)] transform group-hover:scale-105 transition-all"
+             >
+               Submit Ticket.IO
+             </GlowButton>
          </div>
 
          <div className="absolute top-0 right-0 w-[400px] h-full bg-[radial-gradient(circle_at_right,_rgba(14,165,233,0.1),transparent)] pointer-events-none" />

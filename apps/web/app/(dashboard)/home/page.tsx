@@ -122,8 +122,21 @@ export default function HomePage() {
             </div>
             
             <div className="flex gap-4">
-              <GlowButton variant="secondary" className="px-6 py-3 border-white/5 bg-white/5">View Full Route</GlowButton>
-              <GlowButton className="group/btn">
+              <GlowButton 
+                variant="secondary" 
+                className="px-6 py-3 border-white/5 bg-white/5"
+                onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                  detail: { message: 'Mapping optimized route. Initializing HUD GPS...', type: 'info' } 
+                }))}
+              >
+                View Full Route
+              </GlowButton>
+              <GlowButton 
+                className="group/btn"
+                onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                  detail: { message: 'Biometric Class Check-in Successful! Syncing attendance registry.', type: 'success' } 
+                }))}
+              >
                 Check In <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </GlowButton>
             </div>
@@ -194,7 +207,12 @@ export default function HomePage() {
                 <p className="text-sm text-gray-300 font-medium leading-relaxed">
                   {item.content}
                 </p>
-                <div className="mt-4 pt-4 border-t border-white/5 flex items-center gap-2 text-[10px] font-bold text-primary cursor-pointer hover:underline uppercase tracking-wider">
+                <div 
+                  onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                    detail: { message: `Syncing telemetry data for ${item.type} update...`, type: 'info' } 
+                  }))}
+                  className="mt-4 pt-4 border-t border-white/5 flex items-center gap-2 text-[10px] font-bold text-primary cursor-pointer hover:underline uppercase tracking-wider"
+                >
                   View Insight <ArrowRight className="w-3 h-3" />
                 </div>
               </TitanCard>

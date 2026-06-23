@@ -69,7 +69,12 @@ export default function SocialPage() {
           <h1 className="text-4xl font-bold font-space text-white tracking-tight">Social <span className="text-neon-purple glow-text">Hub</span><span className="text-primary">.</span></h1>
           <p className="text-gray-400 mt-2 text-lg font-medium">Connect, share, and stay updated with campus life.</p>
         </div>
-        <GlowButton className="gap-2 px-8 py-4 bg-neon-purple/20 border-neon-purple/30 hover:bg-neon-purple/40">
+        <GlowButton 
+          onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+            detail: { message: 'Opening secure decentralised feed composer...', type: 'info' } 
+          }))}
+          className="gap-2 px-8 py-4 bg-neon-purple/20 border-neon-purple/30 hover:bg-neon-purple/40"
+        >
            <Plus className="w-5 h-5" /> Dispatch Update
         </GlowButton>
       </header>
@@ -137,14 +142,24 @@ export default function SocialPage() {
                           <Heart className={cn("w-5 h-5 transition-transform group-hover/btn:scale-125", post.hasLiked && "fill-pink-500")} />
                           <span className="font-space">{post.likes}</span>
                        </button>
-                       <button className="flex items-center gap-2.5 text-gray-500 hover:text-neon-purple text-sm font-bold transition-all group/btn">
-                          <MessageSquare className="w-5 h-5 group-hover/btn:scale-125 transition-transform" />
-                          <span className="font-space">Comment</span>
-                       </button>
-                       <button className="flex items-center gap-2.5 text-gray-500 hover:text-accent text-sm font-bold transition-all group/btn">
-                          <Share2 className="w-5 h-5 group-hover/btn:scale-125 transition-transform" />
-                          <span className="font-space">Share</span>
-                       </button>
+                       <button 
+                          onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                            detail: { message: 'Comment section synchronized. Displaying conversation node...', type: 'info' } 
+                          }))}
+                          className="flex items-center gap-2.5 text-gray-500 hover:text-neon-purple text-sm font-bold transition-all group/btn"
+                        >
+                           <MessageSquare className="w-5 h-5 group-hover/btn:scale-125 transition-transform" />
+                           <span className="font-space">Comment</span>
+                        </button>
+                        <button 
+                          onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                            detail: { message: 'Asset link copied to system clipboard. Ready to share.', type: 'success' } 
+                          }))}
+                          className="flex items-center gap-2.5 text-gray-500 hover:text-accent text-sm font-bold transition-all group/btn"
+                        >
+                           <Share2 className="w-5 h-5 group-hover/btn:scale-125 transition-transform" />
+                           <span className="font-space">Share</span>
+                        </button>
                     </div>
                  </TitanCard>
                </motion.div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import ToastProvider from "../components/providers/ToastProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space" });
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${spaceGrotesk.variable} text-foreground bg-background relative min-h-screen flex flex-col font-sans`}>
         <div className="absolute inset-0 bg-grid -z-10 pointer-events-none" />
         {children}
+        <ToastProvider />
       </body>
     </html>
   );

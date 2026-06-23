@@ -189,10 +189,22 @@ export default function LogisticsPage() {
                    <span className="text-base font-bold text-accent font-space">94.3%</span>
                 </div>
                 <div className="flex gap-4">
-                  <GlowButton variant="secondary" className="flex-1 py-4 px-0 border-white/10 rounded-2xl group">
+                  <GlowButton 
+                    onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                      detail: { message: 'Initiating voice comm relay node link with Rohan S...', type: 'info' } 
+                    }))}
+                    variant="secondary" 
+                    className="flex-1 py-4 px-0 border-white/10 rounded-2xl group"
+                  >
                     <Phone className="w-4 h-4 mr-2 group-hover:rotate-12 transition-transform" /> Comms
                   </GlowButton>
-                  <GlowButton variant="secondary" className="flex-1 py-4 px-0 border-white/10 rounded-2xl text-red-400 border-red-500/10 hover:bg-red-500/5 group">
+                  <GlowButton 
+                    onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                      detail: { message: 'SOS signal broadcasted to Campus Security Hub and emergency relays!', type: 'error' } 
+                    }))}
+                    variant="secondary" 
+                    className="flex-1 py-4 px-0 border-white/10 rounded-2xl text-red-400 border-red-500/10 hover:bg-red-500/5 group"
+                  >
                     <AlertCircle className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" /> SOS
                   </GlowButton>
                 </div>

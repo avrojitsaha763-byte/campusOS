@@ -60,8 +60,21 @@ export default function WalletPage() {
           </p>
         </div>
         <div className="flex gap-4">
-          <GlowButton variant="secondary" className="px-6 py-3 border-white/10 rounded-2xl">Ledger Export</GlowButton>
-          <GlowButton className="gap-2 px-8 py-3 rounded-2xl group">
+          <GlowButton 
+            onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+              detail: { message: 'Double-entry ledger cryptographic proof exported. Saved to local workspace.', type: 'success' } 
+            }))}
+            variant="secondary" 
+            className="px-6 py-3 border-white/10 rounded-2xl"
+          >
+            Ledger Export
+          </GlowButton>
+          <GlowButton 
+            onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+              detail: { message: 'Minting asset credentials... Synced with central bank node.', type: 'info' } 
+            }))}
+            className="gap-2 px-8 py-3 rounded-2xl group"
+          >
              <CreditCard className="w-4 h-4 group-hover:rotate-12 transition-transform" /> Mint Assets
           </GlowButton>
         </div>
@@ -127,7 +140,15 @@ export default function WalletPage() {
               <p className="text-gray-500 text-xs leading-relaxed font-medium">
                 Funds locked for **2 active logistics nodes** and **1 pending SkillSwap**. Assets will release upon verification hash match.
               </p>
-              <GlowButton variant="secondary" className="w-full text-xs font-bold py-4 rounded-2xl border-white/10 uppercase tracking-widest">Verify Release</GlowButton>
+              <GlowButton 
+                onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                  detail: { message: 'Smart escrow verification active. Telemetry signals synchronized.', type: 'security' } 
+                }))}
+                variant="secondary" 
+                className="w-full text-xs font-bold py-4 rounded-2xl border-white/10 uppercase tracking-widest"
+              >
+                Verify Release
+              </GlowButton>
             </div>
           </AdaptiveWidget>
 

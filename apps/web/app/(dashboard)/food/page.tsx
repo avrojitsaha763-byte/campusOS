@@ -184,7 +184,12 @@ export default function FoodPage() {
                       <p className="text-xs text-gray-500 line-clamp-1 mb-6 font-medium leading-relaxed">{item.description}</p>
                       <div className="flex items-center justify-between">
                          <span className="text-2xl font-bold text-white font-space">₹{item.price}</span>
-                         <button className="w-11 h-11 rounded-2xl bg-white/[0.04] hover:bg-accent hover:text-white border border-white/10 flex items-center justify-center transition-all duration-500 group-active:scale-95">
+                         <button 
+                           onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                             detail: { message: `Added ${item.name} to active fuel cart!`, type: 'success' } 
+                           }))}
+                           className="w-11 h-11 rounded-2xl bg-white/[0.04] hover:bg-accent hover:text-white border border-white/10 flex items-center justify-center transition-all duration-500 group-active:scale-95"
+                         >
                             <Plus className="w-6 h-6" />
                          </button>
                       </div>
@@ -212,7 +217,12 @@ export default function FoodPage() {
              <OrderTimeline steps={orderSteps} />
 
              <div className="mt-10 pt-10 border-t border-white/5">
-                <GlowButton className="w-full gap-3 py-4 rounded-2xl group text-sm font-bold uppercase tracking-widest">
+                <GlowButton 
+                   onClick={() => window.dispatchEvent(new CustomEvent('campus-toast', { 
+                     detail: { message: 'Encrypted communication channel established with delivery partner Rohan S. Latency: 14ms.', type: 'security' } 
+                   }))}
+                   className="w-full gap-3 py-4 rounded-2xl group text-sm font-bold uppercase tracking-widest"
+                >
                    Establish Comm Link <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </GlowButton>
              </div>
